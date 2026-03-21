@@ -1,13 +1,19 @@
-import { kv } from "@vercel/kv";
+import { Redis } from "@upstash/redis";
 import { NextResponse } from "next/server";
+
+// Vercel KV 환경 변수를 사용하여 Redis 초기화
+const redis = new Redis({
+    url: process.env.KV_REST_API_URL!,
+    token: process.env.KV_REST_API_TOKEN!,
+});
 
 const DATA_KEY = "reading_log_storage";
 
-// 데이터 불러오기 (GET)
+// 데이터 불러오기
 export async function GET() {
     try {
-        const data = await kv.get(DATA_KEY);
-        // 데이터가 없을 경우 초기값 반환
+        const data = await redis.get(DATA_KEY);
+
         if (!data) {
             return NextResponse.json({
                 books: [],
@@ -21,34 +27,34 @@ export async function GET() {
         }
         return NextResponse.json(data);
     } catch (error) {
-        console.error("KV GET Error:", error);
+        console.error("Redis GET Error:", error);
         return NextResponse.json(
-            { error: "데이터를 불러오지 못했습니다." },
+            { error: "데이터 로드 실패" },
             { status: 500 },
         );
     }
 }
 
-// 데이터 저장하기 (POST)
+// 데이터 저장하기
 export async function POST(request: Request) {
     try {
-        const body = await request.json();
-        const { password, data } = body;
+        const { password, data } = await request.json();
 
-        // Vercel 환경변수에 설정한 ADMIN_PASSWORD와 비교
+        // 관리자 암호 확인
         if (password !== process.env.ADMIN_PASSWORD) {
             return NextResponse.json(
-                { error: "권한이 없습니다." },
+                { error: "Unauthorized" },
                 { status: 401 },
             );
         }
 
-        await kv.set(DATA_KEY, data);
+        // 데이터 저장
+        await redis.set(DATA_KEY, JSON.stringify(data));
         return NextResponse.json({ success: true });
     } catch (error) {
-        console.error("KV SET Error:", error);
+        console.error("Redis POST Error:", error);
         return NextResponse.json(
-            { error: "데이터 저장에 실패했습니다." },
+            { error: "데이터 저장 실패" },
             { status: 500 },
         );
     }
