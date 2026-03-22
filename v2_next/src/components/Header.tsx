@@ -1,18 +1,29 @@
 "use client";
 
 import useAdminStore from "@/hooks/useAdminStore";
+import usePasswordStore from "@/hooks/usePasswordStore";
 import useSyncStore from "@/hooks/useSyncStore";
 import useThemeStore from "@/hooks/useThemeStore";
+import React, { useCallback } from "react";
 
-interface HeaderProps {
-    onLogin: () => void;
-    onLogout: () => void;
-}
-
-export default function Header({ onLogin, onLogout }: HeaderProps) {
+function Header() {
     const { isDarkMode, toggleTheme } = useThemeStore();
     const { isSyncing } = useSyncStore();
-    const { isAdmin } = useAdminStore();
+    const { isAdmin, setIsAdmin } = useAdminStore();
+    const { setPassword } = usePasswordStore();
+
+    const onLogin = useCallback(() => {
+        const input = prompt("비밀번호 입력");
+        if (input) {
+            setPassword(input);
+            setIsAdmin(true);
+        }
+    }, [setPassword, setIsAdmin]);
+
+    const onLogout = useCallback(() => {
+        setIsAdmin(false);
+        setPassword("");
+    }, [setPassword, setIsAdmin]);
 
     return (
         <header className="flex justify-between items-center mb-10 border-b pb-4 dark:border-slate-700">
@@ -47,3 +58,5 @@ export default function Header({ onLogin, onLogout }: HeaderProps) {
         </header>
     );
 }
+
+export default React.memo(Header);

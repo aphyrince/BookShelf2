@@ -16,8 +16,8 @@ export default function ReadingLog() {
     const { categories, setCategories } = useCategoryStore();
     const { isDarkMode } = useThemeStore();
 
-    const { isAdmin, setIsAdmin } = useAdminStore();
-    const { password, setPassword } = usePasswordStore();
+    const { isAdmin } = useAdminStore();
+    const { password } = usePasswordStore();
 
     // 초기 데이터 로드
     useEffect(() => {
@@ -53,19 +53,7 @@ export default function ReadingLog() {
             className={`${isDarkMode ? "dark bg-slate-900 text-slate-100" : "bg-slate-50 text-slate-900"} min-h-screen p-4 md:p-8 transition-colors`}
         >
             <div className="max-w-7xl mx-auto">
-                <Header
-                    onLogin={() => {
-                        const input = prompt("비밀번호 입력");
-                        if (input) {
-                            setPassword(input);
-                            setIsAdmin(true);
-                        }
-                    }}
-                    onLogout={() => {
-                        setIsAdmin(false);
-                        setPassword("");
-                    }}
-                />
+                <Header />
 
                 {isAdmin && (
                     <Admin

@@ -3,6 +3,7 @@ import useBookStore from "@/hooks/useBookStore";
 import useCategoryStore from "@/hooks/useCategoryStore";
 import usePasswordStore from "@/hooks/usePasswordStore";
 import { BookStatus } from "@/types/Status";
+import React from "react";
 
 const Table = () => {
     const { isAdmin } = useAdminStore();
@@ -134,4 +135,4 @@ const Table = () => {
     );
 };
 
-export default Table;
+export default React.memo(Table);
