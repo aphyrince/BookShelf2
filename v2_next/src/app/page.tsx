@@ -1,5 +1,6 @@
 "use client";
 
+import useCategoryStore from "@/hooks/useCategoryStore";
 import useThemeStore from "@/hooks/useThemeStore";
 import { Book } from "@/types/Book";
 import { BookStatus } from "@/types/Status";
@@ -7,12 +8,7 @@ import { useState, useEffect, useCallback } from "react";
 
 export default function ReadingLog() {
     const [books, setBooks] = useState<Book[]>([]);
-    const [categories, setCategories] = useState<string[]>([
-        "컴퓨터과학",
-        "신경과학·건강",
-        "자기계발",
-        "인문학",
-    ]);
+    const { categories, setCategories } = useCategoryStore();
     const [isAdmin, setIsAdmin] = useState(false);
     const [password, setPassword] = useState("");
     const { isDarkMode, toggleTheme } = useThemeStore();
@@ -39,7 +35,7 @@ export default function ReadingLog() {
             }
         };
         fetchData();
-    }, []);
+    }, [setCategories]);
 
     // 2. 서버 싱크 함수 (Upstash Redis 저장)
     const syncWithServer = useCallback(
