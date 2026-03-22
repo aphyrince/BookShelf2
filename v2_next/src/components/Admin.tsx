@@ -1,16 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { Book } from "@/types/Book";
 import useCategoryStore from "@/hooks/useCategoryStore";
+import useBookStore from "@/hooks/useBookStore";
+import usePasswordStore from "@/hooks/usePasswordStore";
 
-interface AdminProps {
-    onAddBook: (book: Omit<Book, "id" | "status" | "readAt">) => void;
-    onAddCategory: (name: string) => void;
-}
-
-export default function Admin({ onAddBook, onAddCategory }: AdminProps) {
+function Admin() {
     const { categories, setCategories } = useCategoryStore();
+    const { books, syncBooks } = useBookStore();
+    const { password } = usePasswordStore();
     const [newBook, setNewBook] = useState({
         title: "",
         author: "",
@@ -19,10 +18,33 @@ export default function Admin({ onAddBook, onAddCategory }: AdminProps) {
     });
     const [newCatName, setNewCatName] = useState("");
 
+    const handleAddBook = async (bookData: {
+        title: string;
+        author: string;
+        category: string;
+        comment: string;
+    }) => {
+        const item: Book = {
+            id: Date.now(),
+            ...bookData,
+            status: "읽는 중",
+            readAt: [],
+        };
+        const updated = [item, ...books];
+        await syncBooks(updated, categories, password);
+    };
+
+    const handleAddCategory = async (name: string) => {
+        if (!name || categories.includes(name)) return;
+        const updatedCats = [...categories, name];
+        setCategories(updatedCats);
+        await syncBooks(books, updatedCats, password);
+    };
+
     const handleSubmitBook = (e: React.FormEvent) => {
         e.preventDefault();
         if (!newBook.title) return;
-        onAddBook(newBook);
+        handleAddBook(newBook);
         setNewBook({ ...newBook, title: "", author: "", comment: "" });
     };
 
@@ -97,7 +119,7 @@ export default function Admin({ onAddBook, onAddCategory }: AdminProps) {
                     />
                     <button
                         onClick={() => {
-                            onAddCategory(newCatName);
+                            handleAddCategory(newCatName);
                             setNewCatName("");
                         }}
                         className="px-3 py-1 bg-slate-900 text-white dark:bg-white dark:text-black rounded-lg text-xs font-bold"
@@ -129,3 +151,5 @@ export default function Admin({ onAddBook, onAddCategory }: AdminProps) {
         </div>
     );
 }
+
+export default React.memo(Admin);
