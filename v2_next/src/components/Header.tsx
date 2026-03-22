@@ -40,17 +40,23 @@ function Header() {
             <div className="flex gap-2">
                 <button
                     onClick={toggleTheme}
-                    className="p-2 border rounded-xl bg-white dark:bg-slate-800 dark:border-slate-600 text-sm shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700"
+                    style={{
+                        backgroundColor: `${isDarkMode ? "#0f172b" : "#f8fafc"}`,
+                        color: `${isDarkMode ? "#f1f5f9" : "#0f172b"}`,
+                        borderColor: `${isDarkMode ? "#f1f5f9" : "#45556c"}`,
+                    }}
+                    className={`p-2 border rounded-xl text-sm shadow-sm hover:invert-10 duration-200`}
                 >
-                    {isDarkMode ? "☀️ Light" : "🌙 Dark"}
+                    {isDarkMode ? "🔲 Light" : "🔳 Dark"}
                 </button>
                 <button
                     onClick={isAdmin ? onLogout : onLogin}
-                    className={`px-4 py-2 rounded-xl text-sm font-bold border transition shadow-sm ${
-                        isAdmin
-                            ? "bg-red-500 text-white border-red-500"
-                            : "bg-white text-slate-900 dark:bg-slate-800 dark:border-slate-600 dark:text-white"
-                    }`}
+                    style={{
+                        backgroundColor: `${isAdmin ? "#fb2c36" : isDarkMode ? "#1d293d" : "#f8fafc"}`,
+                        color: `${isAdmin ? "#ffffff" : isDarkMode ? "#ffffff" : "#0f172b"}`,
+                        borderColor: `${isAdmin ? "#fb2c36" : isDarkMode ? "#f1f5f9" : "#45556c"}`,
+                    }}
+                    className={`px-4 py-2 rounded-xl text-sm font-bold border transition shadow-sm`}
                 >
                     {isAdmin ? "LOGOUT" : "ADMIN LOGIN"}
                 </button>
