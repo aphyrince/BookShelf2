@@ -1,22 +1,34 @@
 import useAdminStore from "@/hooks/useAdminStore";
 import useBookStore from "@/hooks/useBookStore";
 import useCategoryStore from "@/hooks/useCategoryStore";
-import { Book } from "@/types/Book";
+import usePasswordStore from "@/hooks/usePasswordStore";
 import { BookStatus } from "@/types/Status";
 
-interface TableProps {
-    updateStatus: (id: number, status: BookStatus) => Promise<void>;
-    addReadDate: (id: number) => Promise<void>;
-    syncWithServer: (
-        updatedBooks: Book[],
-        updatedCats: string[],
-    ) => Promise<void>;
-}
-
-const Table = ({ updateStatus, addReadDate, syncWithServer }: TableProps) => {
+const Table = () => {
     const { isAdmin } = useAdminStore();
-    const { books, setBooks } = useBookStore();
     const { categories } = useCategoryStore();
+    const { books, syncBooks } = useBookStore();
+    const { password } = usePasswordStore();
+
+    const updateStatus = async (id: number, status: BookStatus) => {
+        const updated = books.map((b) => (b.id === id ? { ...b, status } : b));
+        await syncBooks(updated, categories, password);
+    };
+
+    const addReadDate = async (id: number) => {
+        const today = new Date().toLocaleDateString();
+        const updated = books.map((b) =>
+            b.id === id
+                ? {
+                      ...b,
+                      status: "완료" as const,
+                      readAt: [...b.readAt, today],
+                  }
+                : b,
+        );
+        await syncBooks(updated, categories, password);
+    };
+
     return (
         <table className="w-full text-left table-fixed border-collapse">
             <thead className="bg-slate-50/50 dark:bg-slate-800/50 text-slate-400 text-[10px] uppercase font-bold tracking-widest border-b border-slate-100 dark:border-slate-800">
@@ -102,8 +114,11 @@ const Table = ({ updateStatus, addReadDate, syncWithServer }: TableProps) => {
                                             const updated = books.filter(
                                                 (b) => b.id !== book.id,
                                             );
-                                            setBooks(updated);
-                                            syncWithServer(updated, categories);
+                                            syncBooks(
+                                                updated,
+                                                categories,
+                                                password,
+                                            );
                                         }
                                     }}
                                     className="opacity-0 group-hover:opacity-100 text-slate-300 hover:text-red-500"
