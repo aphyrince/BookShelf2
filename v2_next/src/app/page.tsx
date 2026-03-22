@@ -1,19 +1,9 @@
 "use client";
 
 import useThemeStore from "@/hooks/useThemeStore";
+import { Book } from "@/types/Book";
+import { BookStatus } from "@/types/Status";
 import { useState, useEffect, useCallback } from "react";
-
-type BookStatus = "완료" | "읽는 중" | "포기함";
-
-interface Book {
-    id: number;
-    title: string;
-    author: string;
-    category: string;
-    status: BookStatus;
-    readAt: string[];
-    comment: string;
-}
 
 export default function ReadingLog() {
     const [books, setBooks] = useState<Book[]>([]);

@@ -1,7 +1,7 @@
-export type BookStatus = "완료" | "읽는 중" | "포기함";
+import { BookStatus } from "./Status";
 
 export interface Book {
-    id: string;
+    id: number;
     title: string;
     author: string;
     category: string;
