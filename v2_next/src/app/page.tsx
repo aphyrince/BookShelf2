@@ -24,10 +24,7 @@ export default function ReadingLog() {
             <div className="max-w-7xl mx-auto">
                 <Header />
                 {isAdmin && <Admin />}
-                {/* 도서 목록 테이블 */}
-                <div className="overflow-hidden border border-slate-200 dark:border-slate-700 rounded-4xl bg-white dark:bg-slate-900 shadow-sm">
-                    <Table />
-                </div>
+                <Table />
             </div>
         </div>
     );
