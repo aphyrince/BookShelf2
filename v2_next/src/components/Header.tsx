@@ -1,21 +1,18 @@
 "use client";
 
+import useAdminStore from "@/hooks/useAdminStore";
+import useSyncStore from "@/hooks/useSyncStore";
 import useThemeStore from "@/hooks/useThemeStore";
 
 interface HeaderProps {
-    isAdmin: boolean;
-    isSyncing: boolean;
     onLogin: () => void;
     onLogout: () => void;
 }
 
-export default function Header({
-    isAdmin,
-    isSyncing,
-    onLogin,
-    onLogout,
-}: HeaderProps) {
+export default function Header({ onLogin, onLogout }: HeaderProps) {
     const { isDarkMode, toggleTheme } = useThemeStore();
+    const { isSyncing } = useSyncStore();
+    const { isAdmin } = useAdminStore();
 
     return (
         <header className="flex justify-between items-center mb-10 border-b pb-4 dark:border-slate-700">
