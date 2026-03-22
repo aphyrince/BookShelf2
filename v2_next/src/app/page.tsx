@@ -7,15 +7,18 @@ import Header from "@/components/Header";
 import Admin from "@/components/Admin";
 import { Book } from "@/types/Book";
 import { BookStatus } from "@/types/Status";
+import useAdminStore from "@/hooks/useAdminStore";
+import useSyncStore from "@/hooks/useSyncStore";
+import usePasswordStore from "@/hooks/usePasswordStore";
 
 export default function ReadingLog() {
     const [books, setBooks] = useState<Book[]>([]);
     const { categories, setCategories } = useCategoryStore();
     const { isDarkMode } = useThemeStore();
 
-    const [isAdmin, setIsAdmin] = useState(false);
-    const [password, setPassword] = useState("");
-    const [isSyncing, setIsSyncing] = useState(false);
+    const { isAdmin, setIsAdmin } = useAdminStore();
+    const { password, setPassword } = usePasswordStore();
+    const { isSyncing, setIsSyncing } = useSyncStore();
 
     // 초기 데이터 로드
     useEffect(() => {
@@ -54,7 +57,7 @@ export default function ReadingLog() {
                 setIsSyncing(false);
             }
         },
-        [isAdmin, password],
+        [isAdmin, password, setIsSyncing],
     );
 
     // 핸들러들
