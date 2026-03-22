@@ -1,5 +1,6 @@
 "use client";
 
+import useThemeStore from "@/state/useThemeStore";
 import { useState, useEffect, useCallback } from "react";
 
 type BookStatus = "완료" | "읽는 중" | "포기함";
@@ -24,7 +25,7 @@ export default function ReadingLog() {
     ]);
     const [isAdmin, setIsAdmin] = useState(false);
     const [password, setPassword] = useState("");
-    const [isDarkMode, setIsDarkMode] = useState(false);
+    const { isDarkMode, toggleTheme } = useThemeStore();
     const [isSyncing, setIsSyncing] = useState(false);
 
     const [newBook, setNewBook] = useState({
@@ -161,7 +162,7 @@ export default function ReadingLog() {
                     </div>
                     <div className="flex gap-2">
                         <button
-                            onClick={() => setIsDarkMode(!isDarkMode)}
+                            onClick={toggleTheme}
                             className="p-2 border rounded-xl bg-white dark:bg-slate-800 dark:border-slate-600 text-sm shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700"
                         >
                             {isDarkMode ? "☀️ Light" : "🌙 Dark"}
