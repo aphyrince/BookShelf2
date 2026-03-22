@@ -1,6 +1,6 @@
 "use client";
 
-import useThemeStore from "@/state/useThemeStore";
+import useThemeStore from "@/hooks/useThemeStore";
 import { useState, useEffect, useCallback } from "react";
 
 type BookStatus = "완료" | "읽는 중" | "포기함";
