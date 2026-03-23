@@ -1,6 +1,19 @@
+import useThemeStore from "@/hooks/useThemeStore";
+
 const TableHeader = ({ isAdmin }: { isAdmin: boolean }) => {
+    const { isDarkMode } = useThemeStore();
+
+    const theadStyle = {
+        backgroundColor: isDarkMode ? "#1d293d8a" : "#f8fafc8a",
+        color: isDarkMode ? "#90a1b9" : "#000000",
+        borderColor: isDarkMode ? "#1d293d" : "#f1f5f9",
+    };
+
     return (
-        <thead className="bg-slate-50/50 dark:bg-slate-800/50 text-slate-400 text-[10px] uppercase font-bold tracking-widest border-b border-slate-100 dark:border-slate-800">
+        <thead
+            style={theadStyle}
+            className="text-xs uppercase font-bold tracking-widest border-b"
+        >
             <tr>
                 <th className="p-5 w-[30%]">Item Information</th>
                 <th className="p-5 w-[15%] text-center">Category</th>
