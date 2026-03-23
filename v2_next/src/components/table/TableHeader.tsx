@@ -1,8 +1,10 @@
+import useAdminStore from "@/hooks/useAdminStore";
 import useThemeStore from "@/hooks/useThemeStore";
 import React from "react";
 
-const TableHeader = ({ isAdmin }: { isAdmin: boolean }) => {
+const TableHeader = () => {
     const { isDarkMode } = useThemeStore();
+    const { isAdmin } = useAdminStore();
 
     const theadStyle = {
         backgroundColor: isDarkMode ? "#1d293d8a" : "#f8fafc8a",

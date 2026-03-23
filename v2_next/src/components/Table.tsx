@@ -46,7 +46,7 @@ const Table = () => {
     return (
         <div className="overflow-hidden border border-slate-200 dark:border-slate-700 rounded-4xl bg-white dark:bg-slate-900 shadow-sm">
             <table className="w-full text-left table-fixed border-collapse">
-                <TableHeader isAdmin={isAdmin} />
+                <TableHeader />
                 <tbody className="divide-y divide-slate-50 dark:divide-slate-800/50">
                     {books.map((book) => (
                         <TableItem
