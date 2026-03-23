@@ -1,4 +1,3 @@
-import useAdminStore from "@/hooks/useAdminStore";
 import useBookStore from "@/hooks/useBookStore";
 import useCategoryStore from "@/hooks/useCategoryStore";
 import usePasswordStore from "@/hooks/usePasswordStore";
@@ -7,12 +6,13 @@ import React, { useCallback } from "react";
 import TableHeader from "./table/TableHeader";
 import { Book } from "@/types/Book";
 import TableItem from "./table/TableItem";
+import useThemeStore from "@/hooks/useThemeStore";
 
 const Table = () => {
-    const { isAdmin } = useAdminStore();
     const { categories } = useCategoryStore();
     const { books, syncBooks } = useBookStore();
     const { password } = usePasswordStore();
+    const { isDarkMode } = useThemeStore();
 
     const updateStatus = async (id: number, status: BookStatus) => {
         const updated = books.map((b) => (b.id === id ? { ...b, status } : b));
@@ -43,8 +43,17 @@ const Table = () => {
         [books, syncBooks, categories, password],
     );
 
+    const style = {
+        backgroundColor: isDarkMode ? "#0f172b" : "#ffffff",
+        color: isDarkMode ? "#e9e9e9" : "#181818",
+        borderColor: isDarkMode ? "#314158" : "#e2e8f0",
+    };
+
     return (
-        <div className="overflow-hidden border border-slate-200 dark:border-slate-700 rounded-4xl bg-white dark:bg-slate-900 shadow-sm">
+        <div
+            style={style}
+            className="overflow-hidden border shadow-sm duration-200"
+        >
             <table className="w-full text-left table-fixed border-collapse">
                 <TableHeader />
                 <tbody className="divide-y divide-slate-50 dark:divide-slate-800/50">
