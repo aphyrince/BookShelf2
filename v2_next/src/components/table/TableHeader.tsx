@@ -1,4 +1,5 @@
 import useThemeStore from "@/hooks/useThemeStore";
+import React from "react";
 
 const TableHeader = ({ isAdmin }: { isAdmin: boolean }) => {
     const { isDarkMode } = useThemeStore();
@@ -26,4 +27,4 @@ const TableHeader = ({ isAdmin }: { isAdmin: boolean }) => {
     );
 };
 
-export default TableHeader;
+export default React.memo(TableHeader);
