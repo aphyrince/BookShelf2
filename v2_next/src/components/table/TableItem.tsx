@@ -22,8 +22,9 @@ const TableItem = ({
         updateStatus(book.id, e.target.value as BookStatus);
     };
 
+    console.log("render! :", book.title);
     return (
-        <div className="group grid grid-cols-[1fr_80px_80px_80px_minmax(0,2fr)] gap-4 place-items-center p-2 h-12 hover:bg-slate-100 dark:hover:bg-slate-800/50 duration-150">
+        <div className="group grid grid-cols-[1fr_80px_80px_80px_minmax(0,2fr)] gap-4 place-items-center p-2 h-12 duration-150">
             <div className="place-self-start flex flex-col gap-1 overflow-hidden">
                 <p className="font-bold text-xs truncate w-full">
                     {book.title}
