@@ -6,7 +6,7 @@ import Header from "@/components/Header";
 import Admin from "@/components/Admin";
 import useAdminStore from "@/hooks/useAdminStore";
 import useBookStore from "@/hooks/useBookStore";
-import Table from "@/components/Table";
+import Table from "@/components/table/Table";
 
 export default function ReadingLog() {
     const { fetchBooks } = useBookStore();

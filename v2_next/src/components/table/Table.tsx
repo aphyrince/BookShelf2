@@ -3,9 +3,9 @@ import useCategoryStore from "@/hooks/useCategoryStore";
 import usePasswordStore from "@/hooks/usePasswordStore";
 import { BookStatus } from "@/types/Status";
 import React, { useCallback } from "react";
-import TableHeader from "./table/TableHeader";
+import TableHeader from "./TableHeader";
 import { Book } from "@/types/Book";
-import TableItem from "./table/TableItem";
+import TableItem from "./TableItem";
 import useThemeStore from "@/hooks/useThemeStore";
 
 const Table = () => {
