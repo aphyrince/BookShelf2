@@ -7,9 +7,11 @@ import useBookStore from "@/hooks/useBookStore";
 import usePasswordStore from "@/hooks/usePasswordStore";
 
 function Admin() {
-    const { categories, setCategories } = useCategoryStore();
-    const { books, syncBooks } = useBookStore();
-    const { password } = usePasswordStore();
+    const categories = useCategoryStore((state) => state.categories);
+    const setCategories = useCategoryStore((state) => state.setCategories);
+    const syncBooks = useBookStore((state) => state.syncBooks);
+    const books = useBookStore((state) => state.books);
+    const password = usePasswordStore((state) => state.password);
     const [newBook, setNewBook] = useState({
         title: "",
         author: "",
