@@ -40,18 +40,13 @@ function Header() {
             <div className="flex gap-2">
                 <button
                     onClick={toggleTheme}
-                    className={`p-2 border rounded-xl bg-slate-900 dark:bg-slate-50 text-slate-100 dark:text-slate-900 border-slate-100 dark:border-slate-600 text-sm font-bold shadow-sm hover:invert-10 duration-200`}
+                    className={`p-2 border rounded-xl bg-slate-900 dark:bg-slate-50 text-slate-100 dark:text-slate-900 border-slate-100 dark:border-slate-600 text-sm font-bold shadow-sm hover:invert-10 duration-200 cursor-pointer`}
                 >
                     {isDarkMode ? "🔲 Light" : "🔳 Dark"}
                 </button>
                 <button
                     onClick={isAdmin ? onLogout : onLogin}
-                    style={{
-                        backgroundColor: `${isAdmin ? "#fb2c36" : isDarkMode ? "#1d293d" : "#f8fafc"}`,
-                        color: `${isAdmin ? "#ffffff" : isDarkMode ? "#ffffff" : "#0f172b"}`,
-                        borderColor: `${isAdmin ? "#fb2c36" : isDarkMode ? "#f1f5f9" : "#45556c"}`,
-                    }}
-                    className={`px-4 py-2 rounded-xl text-sm font-bold border transition shadow-sm`}
+                    className={`${isAdmin && "admin"} px-4 py-2 rounded-xl admin:bg-red-500 admin:text-white admin:border-red-500 bg-slate-50 text-slate-900 border-slate-600 dark:bg-slate-800 dark:text-slate-50 dark:border-slate-100 text-sm font-bold border transition shadow-sm hover:invert-10 duration-200 cursor-pointer`}
                 >
                     {isAdmin ? "LOGOUT" : "ADMIN LOGIN"}
                 </button>

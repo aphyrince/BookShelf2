@@ -1,3 +1,5 @@
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+@custom-variant admin (&:where(.admin, .admin *));
