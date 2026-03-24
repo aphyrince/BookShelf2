@@ -26,7 +26,7 @@ function Header() {
     }, [setPassword, setIsAdmin]);
 
     return (
-        <header className="flex justify-between items-center mb-10 border-b pb-4 dark:border-slate-700">
+        <header className="flex justify-between items-center mb-10 border-b pb-4 dark:border-slate-700 duration-200">
             <div className="flex items-center gap-3">
                 <h1 className="text-2xl font-black italic tracking-tighter">
                     안정호의 책장
@@ -40,12 +40,7 @@ function Header() {
             <div className="flex gap-2">
                 <button
                     onClick={toggleTheme}
-                    style={{
-                        backgroundColor: `${isDarkMode ? "#0f172b" : "#f8fafc"}`,
-                        color: `${isDarkMode ? "#f1f5f9" : "#0f172b"}`,
-                        borderColor: `${isDarkMode ? "#f1f5f9" : "#45556c"}`,
-                    }}
-                    className={`p-2 border rounded-xl text-sm shadow-sm hover:invert-10 duration-200`}
+                    className={`p-2 border rounded-xl bg-slate-900 dark:bg-slate-50 text-slate-100 dark:text-slate-900 border-slate-100 dark:border-slate-600 text-sm font-bold shadow-sm hover:invert-10 duration-200`}
                 >
                     {isDarkMode ? "🔲 Light" : "🔳 Dark"}
                 </button>
