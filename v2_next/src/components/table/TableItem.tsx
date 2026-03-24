@@ -19,19 +19,16 @@ const TableItem = ({
     const { isAdmin } = useAdminStore();
 
     return (
-        <tr key={book.id}>
-            <td className="px-4 py-2 align-top">
-                <div className="font-bold text-base truncate">{book.title}</div>
-                <div className="text-xs text-slate-400 mt-1">
-                    {book.author || "N/A"}
-                </div>
-            </td>
-            <td className="h-full p-2">
-                <span className="inline-block px-2 py-1 rounded-lg text-xs font-black bg-blue-50 dark:bg-blue-900/30 text-blue-500 border border-blue-100/50">
-                    {book.category}
-                </span>
-            </td>
-            <td className="p-2 align-top text-center">
+        <div
+            key={book.id}
+            className="grid grid-cols-[1fr_80px_80px_80px_2fr] gap-4 place-items-center p-2 h-12 "
+        >
+            <div className="place-self-start flex flex-col gap-1">
+                <p className="font-bold text-xs truncate">{book.title}</p>
+                <p className="text-xs text-slate-400">{book.author || "N/A"}</p>
+            </div>
+            <div className="text-xs font-black">{book.category}</div>
+            <div>
                 {isAdmin ? (
                     <select
                         value={book.status}
@@ -44,47 +41,39 @@ const TableItem = ({
                         <option value="완료">🟢 완료</option>
                         <option value="포기함">🔴 포기함</option>
                     </select>
+                ) : book.status === "완료" ? (
+                    "🟢"
+                ) : book.status === "읽는 중" ? (
+                    "🟠"
                 ) : (
-                    <span>
-                        {book.status === "완료"
-                            ? "🟢"
-                            : book.status === "읽는 중"
-                              ? "🟠"
-                              : "🔴"}
-                    </span>
+                    "🔴"
                 )}
-            </td>
-            <td className="px-4 py-2 align-top">
-                <div className="text-[10px] space-y-1">
-                    {book.readAt.map((d, i) => (
-                        <div key={i}>{d}</div>
-                    ))}
-                    {isAdmin && (
-                        <button
-                            onClick={() => addReadDate(book.id)}
-                            className="text-blue-500 hover:underline"
-                        >
-                            + Log
-                        </button>
-                    )}
-                </div>
-            </td>
-            <td className="px-4 py-2 align-top">
-                <p className="text-[11px] text-slate-500 italic line-clamp-3">
-                    {book.comment || "-"}
-                </p>
-            </td>
-            {isAdmin && (
-                <td className="px-4 py-2 align-top">
+            </div>
+            <div className="flex flex-col items-center h-full text-xs overflow-auto">
+                {book.readAt.map((d, i) => (
+                    <div key={i}>{d}</div>
+                ))}
+                {isAdmin && (
                     <button
-                        onClick={() => handleDelete(book)}
-                        className="opacity-0 group-hover:opacity-100 text-slate-300 hover:text-red-500"
+                        onClick={() => addReadDate(book.id)}
+                        className="text-blue-500 hover:underline"
                     >
-                        🗑️
+                        + Log
                     </button>
-                </td>
+                )}
+            </div>
+            <p className="justify-self-start text-xs text-slate-500 italic line-clamp-2">
+                {book.comment || "ㅡ"}
+            </p>
+            {isAdmin && (
+                <button
+                    onClick={() => handleDelete(book)}
+                    className="opacity-0 group-hover:opacity-100 text-slate-300 hover:text-red-500"
+                >
+                    🗑️
+                </button>
             )}
-        </tr>
+        </div>
     );
 };
 

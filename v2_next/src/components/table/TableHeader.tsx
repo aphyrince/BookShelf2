@@ -13,19 +13,17 @@ const TableHeader = () => {
     };
 
     return (
-        <thead
+        <div
             style={theadStyle}
-            className="text-xs font-bold tracking-widest border-b duration-200"
+            className="grid grid-cols-[1fr_80px_80px_80px_2fr] gap-4 p-2 place-items-center text-xs font-bold tracking-widest border-b duration-200"
         >
-            <tr>
-                <th className="p-4 w-[20%]">Title & Authors</th>
-                <th className="p-4 w-[8%] text-center">Category</th>
-                <th className="p-4 w-[8%] text-center">Status</th>
-                <th className="p-4 w-[8%]">Read-at</th>
-                <th className="p-4">Comment</th>
-                {isAdmin && <th className="p-4 w-15"></th>}
-            </tr>
-        </thead>
+            <p className="place-self-start">Title & Authors</p>
+            <p>Category</p>
+            <p>Status</p>
+            <p>Read-at</p>
+            <p className="place-self-start">Comment</p>
+            {isAdmin && <button>x</button>}
+        </div>
     );
 };
 

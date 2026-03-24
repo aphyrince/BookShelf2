@@ -52,22 +52,22 @@ const Table = () => {
     return (
         <div
             style={style}
-            className="overflow-hidden border shadow-sm duration-200"
+            className="flex flex-col column overflow-hidden border shadow-sm duration-200"
         >
-            <table className="w-full text-left table-fixed border-collapse">
-                <TableHeader />
-                <tbody className="divide-y divide-slate-50 dark:divide-slate-800/50">
-                    {books.map((book) => (
-                        <TableItem
-                            key={book.id}
-                            book={book}
-                            addReadDate={addReadDate}
-                            handleDelete={handleDelete}
-                            updateStatus={updateStatus}
-                        />
-                    ))}
-                </tbody>
-            </table>
+            {/* <table className="w-full text-left table-fixed border-collapse"> */}
+            <TableHeader />
+            <div className="flex flex-col divide-y divide-slate-50 dark:divide-slate-800/50">
+                {books.map((book) => (
+                    <TableItem
+                        key={book.id}
+                        book={book}
+                        addReadDate={addReadDate}
+                        handleDelete={handleDelete}
+                        updateStatus={updateStatus}
+                    />
+                ))}
+            </div>
+            {/* </table> */}
         </div>
     );
 };
