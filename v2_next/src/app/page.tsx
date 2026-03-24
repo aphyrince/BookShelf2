@@ -9,9 +9,9 @@ import useBookStore from "@/hooks/useBookStore";
 import Table from "@/components/table/Table";
 
 export default function ReadingLog() {
-    const { fetchBooks } = useBookStore();
-    const { isDarkMode } = useThemeStore();
-    const { isAdmin } = useAdminStore();
+    const fetchBooks = useBookStore((state) => state.fetchBooks);
+    const isDarkMode = useThemeStore((state) => state.isDarkMode);
+    const isAdmin = useAdminStore((state) => state.isAdmin);
 
     useEffect(() => {
         fetchBooks();
