@@ -39,17 +39,17 @@ const TableItem = ({
                     >
                         <option value="읽는 중">🟠 읽는 중</option>
                         <option value="완료">🟢 완료</option>
-                        <option value="포기함">🔴 포기함</option>
+                        <option value="포기함">⚫ 포기함</option>
                     </select>
                 ) : book.status === "완료" ? (
                     "🟢"
                 ) : book.status === "읽는 중" ? (
                     "🟠"
                 ) : (
-                    "🔴"
+                    "⚫"
                 )}
             </div>
-            <div className="flex flex-col items-center h-full text-xs overflow-auto">
+            <div className="flex flex-col items-center h-full text-xs overflow-y-auto scrollbar-thin scrollbar-thumb-slate-500 scrollbar-track-slate-100 dark:scrollbar-thumb-slate-200 dark:scrollbar-track-slate-800 duration-200">
                 {book.readAt.map((d, i) => (
                     <div key={i}>{d}</div>
                 ))}
