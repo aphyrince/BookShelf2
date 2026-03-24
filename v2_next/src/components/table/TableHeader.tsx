@@ -1,22 +1,11 @@
 import useAdminStore from "@/hooks/useAdminStore";
-import useThemeStore from "@/hooks/useThemeStore";
 import React from "react";
 
 const TableHeader = () => {
-    const { isDarkMode } = useThemeStore();
     const { isAdmin } = useAdminStore();
 
-    const theadStyle = {
-        backgroundColor: isDarkMode ? "#1d293d8a" : "#cececea6",
-        color: isDarkMode ? "#90a1b9" : "#313131",
-        borderColor: isDarkMode ? "#1d293d" : "#25252591",
-    };
-
     return (
-        <div
-            style={theadStyle}
-            className="grid grid-cols-[1fr_80px_80px_80px_2fr] gap-4 p-2 place-items-center text-xs font-bold tracking-widest border-b duration-200"
-        >
+        <div className="grid grid-cols-[1fr_80px_80px_80px_2fr] gap-4 place-items-center p-2 bg-[#cececea6] dark:bg-slate-800/50 text-[#313131] dark:text-slate-400 border-[#25252591] dark:border-slate-800 text-xs font-bold tracking-widest border-b duration-200">
             <p className="place-self-start">Title & Authors</p>
             <p>Category</p>
             <p>Status</p>

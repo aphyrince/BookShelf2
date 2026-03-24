@@ -19,11 +19,7 @@ export default function ReadingLog() {
 
     return (
         <div
-            style={{
-                backgroundColor: `${isDarkMode ? "#0f172b" : "#f8fafc"}`,
-                color: `${isDarkMode ? "#f1f5f9" : "#0f172b"}`,
-            }}
-            className={"min-h-screen p-4 md:p-8 transition-colors"}
+            className={`${isDarkMode && "dark"} bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 min-h-screen p-4 md:p-8 transition-colors duration-200`}
         >
             <div className="max-w-7xl mx-auto">
                 <Header />

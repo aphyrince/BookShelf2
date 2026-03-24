@@ -6,13 +6,11 @@ import React, { useCallback } from "react";
 import TableHeader from "./TableHeader";
 import { Book } from "@/types/Book";
 import TableItem from "./TableItem";
-import useThemeStore from "@/hooks/useThemeStore";
 
 const Table = () => {
     const { categories } = useCategoryStore();
     const { books, syncBooks } = useBookStore();
     const { password } = usePasswordStore();
-    const { isDarkMode } = useThemeStore();
 
     const updateStatus = async (id: number, status: BookStatus) => {
         const updated = books.map((b) => (b.id === id ? { ...b, status } : b));
@@ -43,20 +41,10 @@ const Table = () => {
         [books, syncBooks, categories, password],
     );
 
-    const style = {
-        backgroundColor: isDarkMode ? "#0f172b" : "#ffffff",
-        color: isDarkMode ? "#e9e9e9" : "#181818",
-        borderColor: isDarkMode ? "#314158" : "#e2e8f0",
-    };
-
     return (
-        <div
-            style={style}
-            className="flex flex-col column overflow-hidden border shadow-sm duration-200"
-        >
-            {/* <table className="w-full text-left table-fixed border-collapse"> */}
+        <div className="flex flex-col column overflow-hidden border bg-slate-50 dark:bg-slate-900 text-slate-950 dark:text-slate-50 border-[#c6ccd4] dark:border-[#314158] shadow-sm duration-200">
             <TableHeader />
-            <div className="flex flex-col divide-y divide-slate-50 dark:divide-slate-800/50">
+            <div className="flex flex-col divide-y divide-slate-800/50 dark:divide-slate-50/50 duration-200">
                 {books.map((book) => (
                     <TableItem
                         key={book.id}
@@ -67,7 +55,6 @@ const Table = () => {
                     />
                 ))}
             </div>
-            {/* </table> */}
         </div>
     );
 };
