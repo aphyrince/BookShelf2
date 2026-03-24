@@ -7,10 +7,12 @@ import useThemeStore from "@/hooks/useThemeStore";
 import React, { useCallback } from "react";
 
 function Header() {
-    const { isDarkMode, toggleTheme } = useThemeStore();
-    const { isSyncing } = useSyncStore();
-    const { isAdmin, setIsAdmin } = useAdminStore();
-    const { setPassword } = usePasswordStore();
+    const isDarkMode = useThemeStore((state) => state.isDarkMode);
+    const toggleTheme = useThemeStore((state) => state.toggleTheme);
+    const isSyncing = useSyncStore((state) => state.isSyncing);
+    const isAdmin = useAdminStore((state) => state.isAdmin);
+    const setIsAdmin = useAdminStore((state) => state.setIsAdmin);
+    const setPassword = usePasswordStore((state) => state.setPassword);
 
     const onLogin = useCallback(() => {
         const input = prompt("비밀번호 입력");
