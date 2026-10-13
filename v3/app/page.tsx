@@ -1,12 +1,31 @@
-import Image from 'next/image';
-import React from 'react';
+'use client';
 
-const page = () => {
+import useDB from '@/src/hooks/useDB';
+import Image from 'next/image';
+import React, { useState } from 'react';
+
+const Page = () => {
+    const { books, loading, error, addBooks } = useDB();
+    const [title, setTitle] = useState('');
+
     return (
         <div>
-            <Image src='/vercel.svg' alt='vercelImage' width={100} height={100} />
+            {error && error}
+            {loading && 'loading...'}
+            {books && books.map((item) => item.title)}
+            <div className='p-4'>
+                <input
+                    type='text'
+                    className='p-2 border-2 border-gray-500 rounded-md'
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                ></input>
+                <button className='p-2 bg-gray-200 rounded-md' onClick={() => addBooks({ title })}>
+                    추가
+                </button>
+            </div>
         </div>
     );
 };
 
-export default page;
+export default Page;
