@@ -8,17 +8,17 @@ const BookItem = ({ item }: Props) => {
     return (
         <div
             key={item.id}
-            className='grid grid-cols-[1fr_80px_80px_80px_80px_1fr] items-center p-2 text-sm text-center'
+            className='grid grid-cols-[1fr_80px_80px_80px_80px_2fr] gap-4 items-center p-2 text-sm text-center'
         >
-            <div className='flex flex-col gap-1 text-left'>
+            <div className='flex flex-col gap-1 text-left truncate'>
                 <p className='font-bold truncate'>{item.title}</p>
-                <p className='text-xs text-slate-500 truncate ml-4'>{item.author}</p>
+                <p className='text-xs text-slate-500 truncate'>{item.author}</p>
             </div>
             <p>category...</p>
             <p className='text-xs'>{item.readAt.slice(0, 10)}</p>
             <p>{item.count}</p>
             <p>{item.rating}</p>
-            <p className='text-left'>{item.comment}</p>
+            <p className='text-left truncate'>{item.comment}</p>
         </div>
     );
 };
