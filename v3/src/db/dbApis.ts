@@ -16,6 +16,7 @@ export function parseWithIdBook2DTO(book: WithId<Book>): BookDTO {
         comment: book.comment || '',
         count: book.count || 1,
         rating: book.rating || 0,
+        category: book.category || '',
     };
 }
 

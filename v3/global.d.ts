@@ -7,6 +7,7 @@ interface Book {
     comment?: string;
     count?: number;
     rating?: number;
+    category?: string;
 }
 
 // API는 ObjectId와 Date 대신 JSON으로 전달할 수 있는 값을 반환합니다.
@@ -20,4 +21,5 @@ interface BookDTO {
     comment: string;
     count: number;
     rating: number;
+    category: string;
 }
