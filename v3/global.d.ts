@@ -27,3 +27,5 @@ interface BookDTO {
 interface Password {
     password: string;
 }
+
+type MODALS = 'NONE' | 'CATEGORY' | 'ADD' | 'DETAIL';
