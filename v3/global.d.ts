@@ -29,3 +29,20 @@ interface Password {
 }
 
 type MODALS = 'NONE' | 'CATEGORY' | 'ADD' | 'DETAIL';
+
+interface CategoryDTO {
+    id: string;
+    text: string;
+    bgColor: string;
+    darkBgColor: string;
+    fontColor: string;
+    darkFontColor: string;
+}
+
+interface Category {
+    text: string;
+    bgColor: string;
+    darkBgColor: string;
+    fontColor: string;
+    darkFontColor: string;
+}

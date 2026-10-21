@@ -1,11 +1,8 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import requestJSON from '../utils/requestJSON';
-
-function getErrorMessage(error: unknown): string {
-    return error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다.';
-}
+import requestJSON from '../db/requestJSON';
+import getErrorMessage from '../utils/getErrorMessage';
 
 export default function useDB() {
     const [books, setBooks] = useState<BookDTO[]>([]);

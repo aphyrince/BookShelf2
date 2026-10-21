@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import requestJSON from '../utils/requestJSON';
+import requestJSON from '../db/requestJSON';
 
 interface AdminState {
     login: boolean;
