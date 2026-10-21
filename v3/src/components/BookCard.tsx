@@ -4,7 +4,7 @@ interface Props {
     item: BookDTO;
 }
 
-const BookItem = ({ item }: Props) => {
+const BookCard = ({ item }: Props) => {
     return (
         <div
             key={item.id}
@@ -23,4 +23,4 @@ const BookItem = ({ item }: Props) => {
     );
 };
 
-export default BookItem;
+export default BookCard;

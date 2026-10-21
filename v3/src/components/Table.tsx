@@ -1,7 +1,7 @@
 'use client';
 import useDB from '../hooks/useDB';
 import TableHeader from './TableHeader';
-import BookItem from './BookItem';
+import BookCard from './BookCard';
 
 const Table = () => {
     const { books, loading, error } = useDB();
@@ -10,7 +10,7 @@ const Table = () => {
             <TableHeader />
             {/* 카드 리스트 */}
             <div className='divide-y divide-slate-500 '>
-                {books && books.map((item) => <BookItem key={item.id} item={item} />)}
+                {books && books.map((item) => <BookCard key={item.id} item={item} />)}
             </div>
         </div>
     );
