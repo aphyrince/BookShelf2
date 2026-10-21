@@ -3,13 +3,18 @@
 import Header from '@/src/components/Header';
 import CategoryModal from '@/src/components/modals/CategoryModal';
 import Table from '@/src/components/Table';
+import { refreshCategory } from '@/src/hooks/useCategoryStore';
 import { useModalStore } from '@/src/hooks/useModal';
 import { useThemeStore } from '@/src/hooks/useThemeStroe';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const Page = () => {
     const darkMode = useThemeStore((s) => s.darkTheme);
     const activeModal = useModalStore((s) => s.activeModal);
+
+    useEffect(() => {
+        refreshCategory();
+    }, []);
 
     return (
         <div
