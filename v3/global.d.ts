@@ -23,3 +23,7 @@ interface BookDTO {
     rating: number;
     category: string;
 }
+
+interface Password {
+    password: string;
+}
