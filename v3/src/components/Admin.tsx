@@ -3,6 +3,7 @@
 import HeaderButton from '../shared/HeaderButton';
 import { attemptLogin, logout, useAdminStore } from '../hooks/useAdminStore';
 import { useCallback } from 'react';
+import { setModalMode } from '../hooks/useModal';
 
 const Admin = () => {
     const login = useAdminStore((s) => s.login);
@@ -18,10 +19,14 @@ const Admin = () => {
         if (password) attemptLogin(password);
     }, [login]);
 
+    const handleCategoryPress = useCallback(() => {
+        setModalMode('CATEGORY');
+    }, []);
+
     return (
         <div className={`${login && 'admin'} flex justify-center items-center gap-4`}>
             {login && <HeaderButton text={'Add Book'} onClick={() => {}} />}
-            {login && <HeaderButton text={'Edit Category'} onClick={() => {}} />}
+            {login && <HeaderButton text={'Edit Category'} onClick={handleCategoryPress} />}
             <HeaderButton
                 text={'Admin'}
                 onClick={handleAdminPress}
