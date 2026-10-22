@@ -1,24 +1,13 @@
-import { addCategory, deleteCategory, updateCategory, useCategoryStore } from '@/src/hooks/useCategoryStore';
+import { useCategoryStore } from '@/src/hooks/useCategoryStore';
 import { setModalMode } from '@/src/hooks/useModal';
 import HeaderButton from '@/src/shared/HeaderButton';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import CategoryCard from '../../CategoryCard';
-import ColorPicker from './ColorPicker';
-import CategoryEditorPreview from './CategoryEditorPreview';
+import CategoryEditor from './CategoryEditor';
+import { setCategoryEditorItem, setCategoryEditorMode } from '@/src/hooks/useCategoryEditorStore';
 
 const CategoryModal = () => {
     const categories = useCategoryStore((s) => s.categories);
-
-    const [mode, setMode] = useState<'ADD' | 'EDIT'>('ADD');
-
-    const [item, setItem] = useState<CategoryDTO>({
-        id: '',
-        text: '',
-        bgColor: '#aaaaaa',
-        fontColor: '#000000',
-        darkBgColor: '#353232',
-        darkFontColor: '#fffcfc',
-    });
 
     const closeModal = useCallback((e?: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e?.stopPropagation();
@@ -29,44 +18,10 @@ const CategoryModal = () => {
         e.stopPropagation();
     }, []);
 
-    const setAddMode = useCallback(() => {
-        setMode('ADD');
+    const handleCategoryClick = useCallback((item: CategoryDTO) => {
+        setCategoryEditorMode('EDIT');
+        setCategoryEditorItem(item);
     }, []);
-
-    const setEditMode = useCallback(() => {
-        setMode('EDIT');
-    }, []);
-
-    const handleCategoryClick = useCallback(
-        (item: CategoryDTO) => {
-            setEditMode();
-            setItem(item);
-        },
-        [setEditMode],
-    );
-
-    const handleCancel = useCallback(() => {
-        setAddMode();
-        setItem((prev) => ({ ...prev, id: '', text: '' }));
-    }, [setAddMode]);
-
-    const handleAdd = useCallback(() => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { id, ...newCategory } = item;
-        addCategory(newCategory);
-        handleCancel();
-    }, [handleCancel, item]);
-
-    const handleCommit = useCallback(() => {
-        const { id, ...newCategory } = item;
-        updateCategory(id, newCategory);
-        handleCancel();
-    }, [handleCancel, item]);
-
-    const handleDelete = useCallback(() => {
-        deleteCategory(item.id);
-        handleCancel();
-    }, [handleCancel, item.id]);
 
     return (
         <div className='absolute inset-0 flex justify-center items-center bg-black/50' onClick={closeModal}>
@@ -92,78 +47,11 @@ const CategoryModal = () => {
                                 />
                             ))}
                     </div>
-
-                    <div className='flex-1 flex flex-col box-border p-4 justify-between h-full border border-black rounded-2xl'>
-                        <div className='flex flex-col gap-4'>
-                            <input
-                                className='outline outline-slate-400 p-1 rounded-lg active:outline-slate-700 focus:outline-slate-700 duration-200'
-                                placeholder='category name'
-                                type='text'
-                                value={item.text}
-                                onChange={(e) => {
-                                    setItem((prev) => ({ ...prev, text: e.target.value }));
-                                }}
-                            />
-                            <ColorPicker
-                                label='bg Color'
-                                value={item.bgColor}
-                                onChange={(e) => {
-                                    setItem((prev) => ({ ...prev, bgColor: e.target.value }));
-                                }}
-                            />
-                            <ColorPicker
-                                label='text color'
-                                value={item.fontColor}
-                                onChange={(e) => {
-                                    setItem((prev) => ({ ...prev, fontColor: e.target.value }));
-                                }}
-                            />
-                            <ColorPicker
-                                label='dark bg color'
-                                value={item.darkBgColor}
-                                onChange={(e) => {
-                                    setItem((prev) => ({ ...prev, darkBgColor: e.target.value }));
-                                }}
-                            />
-                            <ColorPicker
-                                label='dark text color'
-                                value={item.darkFontColor}
-                                onChange={(e) => {
-                                    setItem((prev) => ({ ...prev, darkFontColor: e.target.value }));
-                                }}
-                            />
-                            <div className='grid grid-cols-2 items-center justify-between gap-4 mt-4'>
-                                <HeaderButton text='cancel' onClick={handleCancel} />
-                                {mode === 'ADD' && (
-                                    <HeaderButton
-                                        text='ADD'
-                                        onClick={handleAdd}
-                                        customStyle='hover:bg-green-500 hover:border-transparent active:border-green-900'
-                                    />
-                                )}
-                                {mode === 'EDIT' && (
-                                    <HeaderButton
-                                        text='delete'
-                                        onClick={handleDelete}
-                                        customStyle='hover:bg-red-500 hover:border-transparent active:border-red-900'
-                                    />
-                                )}
-                                {mode === 'EDIT' && (
-                                    <HeaderButton
-                                        text='commit'
-                                        onClick={handleCommit}
-                                        customStyle='hover:bg-green-500 hover:border-transparent active:border-green-900 col-span-2'
-                                    />
-                                )}
-                            </div>
-                        </div>
-                        <hr />
-                        <CategoryEditorPreview item={item} />
-                    </div>
+                    <CategoryEditor />
                 </div>
             </div>
         </div>
     );
 };
 
-export default CategoryModal;
+export default React.memo(CategoryModal);

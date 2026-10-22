@@ -46,3 +46,5 @@ interface Category {
     fontColor: string;
     darkFontColor: string;
 }
+
+type CategoryEditMode = 'ADD' | 'EDIT';

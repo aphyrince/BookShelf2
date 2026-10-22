@@ -1,11 +1,8 @@
-import React from 'react';
 import CategoryCard from '../../CategoryCard';
+import { useCategoryEditorStore } from '@/src/hooks/useCategoryEditorStore';
 
-interface Props {
-    item: CategoryDTO;
-}
-
-const CategoryEditorPreview = ({ item }: Props) => {
+const CategoryEditorPreview = () => {
+    const item = useCategoryEditorStore((s) => s.item);
     return (
         <div>
             <p className='italic text-sm'>Preview</p>
