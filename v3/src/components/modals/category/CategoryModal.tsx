@@ -2,20 +2,22 @@ import { addCategory, deleteCategory, updateCategory, useCategoryStore } from '@
 import { setModalMode } from '@/src/hooks/useModal';
 import HeaderButton from '@/src/shared/HeaderButton';
 import React, { useCallback, useState } from 'react';
-import CategoryCard from '../CategoryCard';
+import CategoryCard from '../../CategoryCard';
+import ColorPicker from './ColorPicker';
 
 const CategoryModal = () => {
     const categories = useCategoryStore((s) => s.categories);
 
     const [mode, setMode] = useState<'ADD' | 'EDIT'>('ADD');
 
-    const [id, setId] = useState('');
-
-    const [name, setName] = useState('');
-    const [bgColor, setBgColor] = useState('#aaaaaa');
-    const [fontColor, setFontColor] = useState('#000000');
-    const [darkBgColor, setDarkBgColor] = useState('#353232');
-    const [darkFontColor, setDarkFontColor] = useState('#fffcfc');
+    const [item, setItem] = useState<CategoryDTO>({
+        id: '',
+        text: '',
+        bgColor: '#aaaaaa',
+        fontColor: '#000000',
+        darkBgColor: '#353232',
+        darkFontColor: '#fffcfc',
+    });
 
     const closeModal = useCallback((e?: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e?.stopPropagation();
@@ -37,42 +39,33 @@ const CategoryModal = () => {
     const handleCategoryClick = useCallback(
         (item: CategoryDTO) => {
             setEditMode();
-            setId(item.id);
-            setName(item.text);
-            setBgColor(item.bgColor);
-            setDarkBgColor(item.darkBgColor);
-            setFontColor(item.fontColor);
-            setDarkFontColor(item.darkFontColor);
+            setItem(item);
         },
         [setEditMode],
     );
 
     const handleCancel = useCallback(() => {
         setAddMode();
-        setName('');
-        setId('');
-    }, [setAddMode, setId]);
+        setItem((prev) => ({ ...prev, id: '', text: '' }));
+    }, [setAddMode]);
 
     const handleAdd = useCallback(() => {
-        addCategory({
-            text: name,
-            bgColor,
-            darkBgColor,
-            fontColor,
-            darkFontColor,
-        });
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { id, ...newCategory } = item;
+        addCategory(newCategory);
         handleCancel();
-    }, [handleCancel, name, bgColor, fontColor, darkBgColor, darkFontColor]);
+    }, [handleCancel, item]);
 
     const handleCommit = useCallback(() => {
-        updateCategory(id, { text: name, bgColor, darkBgColor, fontColor, darkFontColor });
+        const { id, ...newCategory } = item;
+        updateCategory(id, newCategory);
         handleCancel();
-    }, [handleCancel, id, name, bgColor, fontColor, darkBgColor, darkFontColor]);
+    }, [handleCancel, item]);
 
     const handleDelete = useCallback(() => {
-        deleteCategory(id);
+        deleteCategory(item.id);
         handleCancel();
-    }, [handleCancel, id]);
+    }, [handleCancel, item.id]);
 
     return (
         <div className='absolute inset-0 flex justify-center items-center bg-black/50' onClick={closeModal}>
@@ -105,49 +98,39 @@ const CategoryModal = () => {
                                 className='outline outline-slate-400 p-1 rounded-lg active:outline-slate-700 focus:outline-slate-700 duration-200'
                                 placeholder='category name'
                                 type='text'
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
+                                value={item.text}
+                                onChange={(e) => {
+                                    setItem((prev) => ({ ...prev, text: e.target.value }));
+                                }}
                             />
-                            <div className='flex justify-between gap-4'>
-                                <p className='uppercase'>bg color</p>
-                                <input
-                                    type='color'
-                                    value={bgColor}
-                                    onChange={(e) => {
-                                        setBgColor(e.target.value);
-                                    }}
-                                />
-                            </div>
-                            <div className='flex justify-between gap-4'>
-                                <p className='uppercase'>text color</p>
-                                <input
-                                    type='color'
-                                    value={fontColor}
-                                    onChange={(e) => {
-                                        setFontColor(e.target.value);
-                                    }}
-                                />
-                            </div>
-                            <div className='flex justify-between gap-4'>
-                                <p className='uppercase'>dark bg color</p>
-                                <input
-                                    type='color'
-                                    value={darkBgColor}
-                                    onChange={(e) => {
-                                        setDarkBgColor(e.target.value);
-                                    }}
-                                />
-                            </div>
-                            <div className='flex justify-between gap-4'>
-                                <p className='uppercase'>dark text color</p>
-                                <input
-                                    type='color'
-                                    value={darkFontColor}
-                                    onChange={(e) => {
-                                        setDarkFontColor(e.target.value);
-                                    }}
-                                />
-                            </div>
+                            <ColorPicker
+                                label='bg Color'
+                                value={item.bgColor}
+                                onChange={(e) => {
+                                    setItem((prev) => ({ ...prev, bgColor: e.target.value }));
+                                }}
+                            />
+                            <ColorPicker
+                                label='text color'
+                                value={item.fontColor}
+                                onChange={(e) => {
+                                    setItem((prev) => ({ ...prev, fontColor: e.target.value }));
+                                }}
+                            />
+                            <ColorPicker
+                                label='dark bg color'
+                                value={item.darkBgColor}
+                                onChange={(e) => {
+                                    setItem((prev) => ({ ...prev, darkBgColor: e.target.value }));
+                                }}
+                            />
+                            <ColorPicker
+                                label='dark text color'
+                                value={item.darkFontColor}
+                                onChange={(e) => {
+                                    setItem((prev) => ({ ...prev, darkFontColor: e.target.value }));
+                                }}
+                            />
                             <div className='grid grid-cols-2 items-center justify-between gap-4 mt-4'>
                                 <HeaderButton text='cancel' onClick={handleCancel} />
                                 {mode === 'ADD' && (
@@ -177,30 +160,16 @@ const CategoryModal = () => {
                         <div>
                             <p className='italic text-sm'>Preview</p>
                             <div className='w-full h-25 bg-slate-50 flex justify-center items-center'>
-                                {name && (
+                                {item.text && (
                                     <CategoryCard
-                                        item={{
-                                            id: 'temp1',
-                                            text: name,
-                                            bgColor,
-                                            darkBgColor: bgColor,
-                                            fontColor,
-                                            darkFontColor: fontColor,
-                                        }}
+                                        item={{ ...item, darkBgColor: item.bgColor, darkFontColor: item.fontColor }}
                                     />
                                 )}
                             </div>
                             <div className='w-full h-25 bg-slate-800 flex justify-center items-center'>
-                                {name && (
+                                {item.text && (
                                     <CategoryCard
-                                        item={{
-                                            id: 'temp2',
-                                            text: name,
-                                            bgColor: darkBgColor,
-                                            darkBgColor,
-                                            fontColor: darkFontColor,
-                                            darkFontColor,
-                                        }}
+                                        item={{ ...item, bgColor: item.darkBgColor, fontColor: item.darkFontColor }}
                                     />
                                 )}
                             </div>

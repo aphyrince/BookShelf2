@@ -1,7 +1,7 @@
 'use client';
 
 import Header from '@/src/components/Header';
-import CategoryModal from '@/src/components/modals/CategoryModal';
+import CategoryModal from '@/src/components/modals/category/CategoryModal';
 import DetailModal from '@/src/components/modals/DetailModal';
 import Table from '@/src/components/Table';
 import { refreshCategory } from '@/src/hooks/useCategoryStore';
