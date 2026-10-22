@@ -8,6 +8,7 @@ import { getCategoryById, useCategoryStore } from '@/src/hooks/useCategoryStore'
 const DetailModal = () => {
     const item = useModalStore((s) => s.bookDetail) as BookDTO;
     const categories = useCategoryStore((s) => s.categories);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const categoryItem = useMemo(() => getCategoryById(item.category), [item.category, categories]);
 
     const closeModal = useCallback((e?: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -19,7 +20,9 @@ const DetailModal = () => {
     return (
         <div className='absolute inset-0 flex justify-center items-center bg-black/50' onClick={closeModal}>
             <div
-                className='fixed top-1/2 left-1/2 -translate-1/2 w-4/5 min-w-100 p-4 md:p-8 flex flex-col gap-2 md:gap-4 
+                className='fixed top-1/2 left-1/2 -translate-1/2 
+                           flex flex-col gap-2 md:gap-4
+                           w-4/5 min-w-100 p-4 md:p-8 
                          bg-slate-50 dark:bg-slate-900 dark:border dark:border-white
                            rounded-xl overflow-hidden'
                 onClick={(e) => e.stopPropagation()}
