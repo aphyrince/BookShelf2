@@ -19,7 +19,7 @@ const BookCard = ({ item }: Props) => {
                 <p className='text-xs text-slate-500 truncate'>{item.author}</p>
             </div>
             {/* <p>{item.category}</p> */}
-            {categoryItem && <CategoryCard item={categoryItem} customStyle=' text-xs' />}
+            {categoryItem && <CategoryCard item={categoryItem} customStyle=' truncate' />}
             <p className='text-xs'>{item.readAt.slice(0, 10)}</p>
             <p>{item.count}</p>
             <p>{item.rating}</p>
