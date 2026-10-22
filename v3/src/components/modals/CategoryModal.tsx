@@ -80,8 +80,8 @@ const CategoryModal = () => {
                     <p className='flex-1 text-2xl '>Category</p>
                     <HeaderButton text='X' onClick={() => setModalMode('NONE')} />
                 </div>
-                <div className='h-9/10 flex gap-2'>
-                    <div className='h-full flex-1 overflow-auto flex flex-col gap-3 justify-center items-center'>
+                <div className='flex flex-1 min-h-0 gap-2'>
+                    <div className='flex flex-col gap-3 items-center py-3 min-h-0 overflow-y-auto'>
                         {/* 카테고리 카드 */}
                         {categories &&
                             categories.map((item) => (
