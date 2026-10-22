@@ -4,6 +4,7 @@ import HeaderButton from '@/src/shared/HeaderButton';
 import React, { useCallback, useState } from 'react';
 import CategoryCard from '../../CategoryCard';
 import ColorPicker from './ColorPicker';
+import CategoryEditorPreview from './CategoryEditorPreview';
 
 const CategoryModal = () => {
     const categories = useCategoryStore((s) => s.categories);
@@ -157,23 +158,7 @@ const CategoryModal = () => {
                             </div>
                         </div>
                         <hr />
-                        <div>
-                            <p className='italic text-sm'>Preview</p>
-                            <div className='w-full h-25 bg-slate-50 flex justify-center items-center'>
-                                {item.text && (
-                                    <CategoryCard
-                                        item={{ ...item, darkBgColor: item.bgColor, darkFontColor: item.fontColor }}
-                                    />
-                                )}
-                            </div>
-                            <div className='w-full h-25 bg-slate-800 flex justify-center items-center'>
-                                {item.text && (
-                                    <CategoryCard
-                                        item={{ ...item, bgColor: item.darkBgColor, fontColor: item.darkFontColor }}
-                                    />
-                                )}
-                            </div>
-                        </div>
+                        <CategoryEditorPreview item={item} />
                     </div>
                 </div>
             </div>
