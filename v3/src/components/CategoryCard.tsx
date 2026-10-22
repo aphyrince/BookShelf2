@@ -21,7 +21,7 @@ const CategoryCard = ({ item, onClick, customStyle = '' }: Props) => {
 
     return (
         <div
-            className={`px-2 py-1 text-center rounded-xl
+            className={`px-2 py-1 text-center rounded-xl duration-300
                        bg-(--category-bg) text-(--category-font) 
                        dark:bg-(--category-dark-bg) 
                        dark:text-(--category-dark-font) 
