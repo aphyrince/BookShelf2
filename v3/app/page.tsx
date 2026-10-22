@@ -2,6 +2,7 @@
 
 import Header from '@/src/components/Header';
 import CategoryModal from '@/src/components/modals/CategoryModal';
+import DetailModal from '@/src/components/modals/DetailModal';
 import Table from '@/src/components/Table';
 import { refreshCategory } from '@/src/hooks/useCategoryStore';
 import { useModalStore } from '@/src/hooks/useModal';
@@ -23,6 +24,7 @@ const Page = () => {
             <Header />
             <hr />
             {activeModal === 'CATEGORY' && <CategoryModal />}
+            {activeModal === 'DETAIL' && <DetailModal />}
             <Table />
         </div>
     );

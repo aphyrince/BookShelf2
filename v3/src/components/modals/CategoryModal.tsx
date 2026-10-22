@@ -1,4 +1,4 @@
-import { addCategory, updateCategory, useCategoryStore } from '@/src/hooks/useCategoryStore';
+import { addCategory, deleteCategory, updateCategory, useCategoryStore } from '@/src/hooks/useCategoryStore';
 import { setModalMode } from '@/src/hooks/useModal';
 import HeaderButton from '@/src/shared/HeaderButton';
 import React, { useCallback, useState } from 'react';
@@ -17,8 +17,8 @@ const CategoryModal = () => {
     const [darkBgColor, setDarkBgColor] = useState('#353232');
     const [darkFontColor, setDarkFontColor] = useState('#fffcfc');
 
-    const closeModal = useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        e.stopPropagation();
+    const closeModal = useCallback((e?: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        e?.stopPropagation();
         setModalMode('NONE');
     }, []);
 
@@ -69,6 +69,11 @@ const CategoryModal = () => {
         handleCancel();
     }, [handleCancel, id, name, bgColor, fontColor, darkBgColor, darkFontColor]);
 
+    const handleDelete = useCallback(() => {
+        deleteCategory(id);
+        handleCancel();
+    }, [handleCancel, id]);
+
     return (
         <div className='absolute inset-0 flex justify-center items-center bg-black/50' onClick={closeModal}>
             <div
@@ -78,7 +83,7 @@ const CategoryModal = () => {
                 {/* 카테고리 헤더 */}
                 <div className='flex items-center gap-4 '>
                     <p className='flex-1 text-2xl '>Category</p>
-                    <HeaderButton text='X' onClick={() => setModalMode('NONE')} />
+                    <HeaderButton text='X' onClick={closeModal} />
                 </div>
                 <div className='flex flex-1 min-h-0 gap-2'>
                     <div className='flex flex-col gap-3 items-center py-3 min-h-0 overflow-y-auto'>
@@ -143,7 +148,7 @@ const CategoryModal = () => {
                                     }}
                                 />
                             </div>
-                            <div className='flex items-center justify-between gap-4 mt-4'>
+                            <div className='grid grid-cols-2 items-center justify-between gap-4 mt-4'>
                                 <HeaderButton text='cancel' onClick={handleCancel} />
                                 {mode === 'ADD' && (
                                     <HeaderButton
@@ -154,9 +159,16 @@ const CategoryModal = () => {
                                 )}
                                 {mode === 'EDIT' && (
                                     <HeaderButton
+                                        text='delete'
+                                        onClick={handleDelete}
+                                        customStyle='hover:bg-red-500 hover:border-transparent active:border-red-900'
+                                    />
+                                )}
+                                {mode === 'EDIT' && (
+                                    <HeaderButton
                                         text='commit'
                                         onClick={handleCommit}
-                                        customStyle='hover:bg-green-500 hover:border-transparent active:border-green-900'
+                                        customStyle='hover:bg-green-500 hover:border-transparent active:border-green-900 col-span-2'
                                     />
                                 )}
                             </div>
