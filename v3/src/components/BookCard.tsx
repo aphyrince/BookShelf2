@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import CategoryCard from './CategoryCard';
+import { getCategoryById, useCategoryStore } from '../hooks/useCategoryStore';
 
 interface Props {
     item: BookDTO;
 }
 
 const BookCard = ({ item }: Props) => {
+    const categories = useCategoryStore((s) => s.categories);
+    const categoryItem = useMemo(() => getCategoryById(item.category), [item.category, categories]);
     return (
         <div
             key={item.id}
@@ -14,7 +18,8 @@ const BookCard = ({ item }: Props) => {
                 <p className='font-bold truncate'>{item.title}</p>
                 <p className='text-xs text-slate-500 truncate'>{item.author}</p>
             </div>
-            <p>category...</p>
+            {/* <p>{item.category}</p> */}
+            {categoryItem && <CategoryCard item={categoryItem} customStyle=' text-xs' />}
             <p className='text-xs'>{item.readAt.slice(0, 10)}</p>
             <p>{item.count}</p>
             <p>{item.rating}</p>

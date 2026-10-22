@@ -16,6 +16,10 @@ export const useCategoryStore = create<CategoryState>()(() => ({
     error: null,
 }));
 
+export function getCategoryById(categoryId: string) {
+    return useCategoryStore.getState().categories?.find((item) => item.id === categoryId) || null;
+}
+
 export async function refreshCategory() {
     useCategoryStore.setState({ loading: true, error: null });
     try {
