@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import ColorPicker from './ColorPicker';
 import HeaderButton from '@/src/shared/HeaderButton';
 import CategoryEditorPreview from './CategoryEditorPreview';
@@ -44,7 +44,7 @@ const CategoryEditor = () => {
     }, [handleCancel, item.id]);
 
     return (
-        <div className='flex-1 flex flex-col box-border p-4 justify-between h-full border border-black rounded-2xl'>
+        <div className='flex-1 flex flex-col box-border p-4 gap-4 justify-between h-full border border-black rounded-2xl'>
             <div className='flex flex-col gap-4'>
                 <input
                     className='outline outline-slate-400 p-1 rounded-lg active:outline-slate-700 focus:outline-slate-700 duration-200'
@@ -83,7 +83,7 @@ const CategoryEditor = () => {
                         setCategoryEditorItem({ ...item, darkFontColor: e.target.value });
                     }}
                 />
-                <div className='grid grid-cols-2 items-center justify-between gap-4 mt-4'>
+                <div className='grid grid-cols-2 items-center justify-between gap-4'>
                     <HeaderButton text='cancel' onClick={handleCancel} />
                     {mode === 'ADD' && (
                         <HeaderButton

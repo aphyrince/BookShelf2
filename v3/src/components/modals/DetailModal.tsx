@@ -23,7 +23,7 @@ const DetailModal = () => {
                 className='fixed top-1/2 left-1/2 -translate-1/2 
                            flex flex-col gap-2 md:gap-4
                            w-4/5 min-w-100 p-4 md:p-8 
-                         bg-slate-50 dark:bg-slate-900 dark:border dark:border-white
+                          bg-slate-50 dark:bg-slate-900 dark:border dark:border-white
                            rounded-xl overflow-hidden'
                 onClick={(e) => e.stopPropagation()}
             >
