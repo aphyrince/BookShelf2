@@ -1,10 +1,11 @@
 'use client';
-import useDB from '../hooks/useDB';
+
 import TableHeader from './TableHeader';
 import BookCard from './BookCard';
+import { useBookStore } from '../hooks/useBookStore';
 
 const Table = () => {
-    const { books, loading, error } = useDB();
+    const books = useBookStore((s) => s.books);
     return (
         <div className='flex-col outline outline-slate-500 divide-y divide-slate-500'>
             <TableHeader />

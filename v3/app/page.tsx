@@ -4,6 +4,7 @@ import Header from '@/src/components/Header';
 import CategoryModal from '@/src/components/modals/category/CategoryModal';
 import DetailModal from '@/src/components/modals/DetailModal';
 import Table from '@/src/components/Table';
+import { refreshBook } from '@/src/hooks/useBookStore';
 import { refreshCategory } from '@/src/hooks/useCategoryStore';
 import { useModalStore } from '@/src/hooks/useModal';
 import { useThemeStore } from '@/src/hooks/useThemeStroe';
@@ -14,6 +15,7 @@ const Page = () => {
     const activeModal = useModalStore((s) => s.activeModal);
 
     useEffect(() => {
+        refreshBook();
         refreshCategory();
     }, []);
 

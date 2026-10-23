@@ -4,7 +4,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import DetailItemCard from '../DetailItemCard';
 import CategoryCard from '../CategoryCard';
 import { getCategoryById, useCategoryStore } from '@/src/hooks/useCategoryStore';
-import useDB from '@/src/hooks/useDB';
+import { deleteBook, refreshBook } from '@/src/hooks/useBookStore';
 
 const DetailModal = () => {
     const item = useModalStore((s) => s.bookDetail) as BookDTO;
@@ -13,8 +13,6 @@ const DetailModal = () => {
     const categoryItem = useMemo(() => getCategoryById(item.category), [item.category, categories]);
 
     const [editMode, setEditMode] = useState(false);
-
-    const { deleteBook, updateBook, refresh } = useDB();
 
     const closeModal = useCallback((e?: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e?.stopPropagation();
@@ -33,10 +31,10 @@ const DetailModal = () => {
     const handleDelete = useCallback(() => {
         if (confirm('삭제하시겠습니까?')) {
             deleteBook(item.id);
-            refresh();
+            refreshBook();
             closeModal();
         }
-    }, [closeModal, item.id, deleteBook, refresh]);
+    }, [closeModal, item.id]);
 
     const handleCommit = useCallback(() => {}, []);
 
