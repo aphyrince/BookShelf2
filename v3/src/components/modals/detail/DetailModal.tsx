@@ -53,6 +53,7 @@ const DetailModal = () => {
 
     const handleCommit = useCallback(() => {
         setDetailItem(item);
+        setPrevBookDetail(item);
         updateBook(item.id, item);
         refreshBook();
         setEditMode(false);
