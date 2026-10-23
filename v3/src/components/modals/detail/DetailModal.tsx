@@ -90,8 +90,16 @@ const DetailModal = () => {
                         <p className='uppercase'>category</p>
                         {categoryItem && <CategoryCard item={categoryItem} customStyle=' truncate mr-auto' />}
                     </div>
-                    <DetailItemCard label='count' text={item.count} />
-                    <DetailItemCard label='rating' text={item.rating} />
+                    {editMode ? (
+                        <DetailEditCard label='count' type='number' />
+                    ) : (
+                        <DetailItemCard label='count' text={item.count} />
+                    )}
+                    {editMode ? (
+                        <DetailEditCard label='rating' type='number' />
+                    ) : (
+                        <DetailItemCard label='rating' text={item.rating} />
+                    )}
                     {editMode ? (
                         <DetailEditCard label='readAt' type='date' />
                     ) : (
@@ -108,7 +116,7 @@ const DetailModal = () => {
                         <DetailItemCard label='updated at' text={item.updatedAt.slice(0, 10)} />
                     )}
                     {editMode ? (
-                        <DetailEditCard label='comment' custumStyle='flex flex-col gap-2' />
+                        <DetailEditCard label='comment' custumStyle='flex flex-col gap-2' textarea />
                     ) : (
                         <div className='flex flex-col gap-2'>
                             <p className='uppercase'>comment</p>
