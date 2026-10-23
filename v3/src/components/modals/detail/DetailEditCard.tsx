@@ -1,5 +1,5 @@
 import { setDetailPartialItem, useModalStore } from '@/src/hooks/useModal';
-import React, { HTMLAttributes, useCallback } from 'react';
+import React, { useCallback } from 'react';
 
 interface Props {
     label: keyof BookDTO;

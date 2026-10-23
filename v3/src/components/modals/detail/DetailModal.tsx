@@ -1,4 +1,6 @@
-import { setDetailItem, setModalMode, useModalStore } from '@/src/hooks/useModal';
+'use client';
+
+import { setDetail2Prev, setDetailItem, setModalMode, setPrevBookDetail, useModalStore } from '@/src/hooks/useModal';
 import HeaderButton from '@/src/shared/HeaderButton';
 import React, { useCallback, useMemo, useState } from 'react';
 
@@ -8,6 +10,7 @@ import { useAdminStore } from '@/src/hooks/useAdminStore';
 import DetailItemCard from './DetailItemCard';
 import CategoryCard from '../../CategoryCard';
 import DetailEditCard from './DetailEditCard';
+import DetailCategoryEditor from './DetailCategoryEditor';
 
 const DetailModal = () => {
     const item = useModalStore((s) => s.bookDetail) as BookDTO;
@@ -16,11 +19,18 @@ const DetailModal = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const categoryItem = useMemo(() => getCategoryById(item.category), [item.category, categories]);
     const isAdmin = useAdminStore((s) => s.login);
+    const [showCategoryList, setShowCategoryList] = useState(false);
 
     const closeModal = useCallback((e?: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e?.stopPropagation();
         setModalMode('NONE');
         setDetailItem(null);
+        setPrevBookDetail(null);
+    }, []);
+
+    const handleModalClick = useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        e.stopPropagation();
+        setShowCategoryList(false);
     }, []);
 
     const handleEditClick = useCallback(() => {
@@ -30,6 +40,7 @@ const DetailModal = () => {
 
     const handleCancel = useCallback(() => {
         setEditMode(false);
+        setDetail2Prev();
     }, []);
 
     const handleDelete = useCallback(() => {
@@ -41,6 +52,7 @@ const DetailModal = () => {
     }, [closeModal, item.id]);
 
     const handleCommit = useCallback(() => {
+        setDetailItem(item);
         updateBook(item.id, item);
         refreshBook();
         setEditMode(false);
@@ -54,7 +66,7 @@ const DetailModal = () => {
                            max-w-200 w-4/5 min-w-100 p-4 md:p-8 
                           bg-slate-50 dark:bg-slate-900 dark:border dark:border-white
                            rounded-xl overflow-hidden'
-                onClick={(e) => e.stopPropagation()}
+                onClick={handleModalClick}
             >
                 {/* 디테일 헤더 */}
                 <div className='flex items-center gap-4'>
@@ -86,9 +98,32 @@ const DetailModal = () => {
                     ) : (
                         <DetailItemCard label='author' text={item.author} />
                     )}
-                    <div className='grid grid-cols-2'>
+                    <div className='grid grid-cols-2 relative'>
                         <p className='uppercase'>category</p>
-                        {categoryItem && <CategoryCard item={categoryItem} customStyle=' truncate mr-auto' />}
+                        <div className='flex'>
+                            {categoryItem && (
+                                <CategoryCard
+                                    item={categoryItem}
+                                    customStyle=' truncate mr-auto cursor-pointer'
+                                    onClick={(e) => {
+                                        e?.stopPropagation();
+                                        setShowCategoryList((prev) => !prev);
+                                    }}
+                                />
+                            )}
+                            {editMode && categories && (
+                                <DetailCategoryEditor
+                                    categories={categories}
+                                    show={showCategoryList}
+                                    onClose={() => setShowCategoryList(false)}
+                                />
+                            )}
+                            {/* <div className='absolute top-0 right-0 size-50 bg-slate-50 overflow-auto border rounded-xl p-2 flex flex-col gap-2 items-center'>
+                            {categories?.map((category) => (
+                                <CategoryCard key={category.id} item={category} />
+                            ))}
+                        </div> */}
+                        </div>
                     </div>
                     {editMode ? (
                         <DetailEditCard label='count' type='number' />

@@ -2,7 +2,7 @@ import React from 'react';
 
 interface Props {
     item: CategoryDTO;
-    onClick?: () => void;
+    onClick?: (e?: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
     customStyle?: string;
 }
 

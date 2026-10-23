@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import CategoryCard from './CategoryCard';
 import { getCategoryById, useCategoryStore } from '../hooks/useCategoryStore';
-import { setDetailItem, setModalMode } from '../hooks/useModal';
+import { setDetailItem, setModalMode, setPrevBookDetail } from '../hooks/useModal';
 
 interface Props {
     item: BookDTO;
@@ -14,6 +14,7 @@ const BookCard = ({ item }: Props) => {
     const handleOpenDetail = useCallback(() => {
         setModalMode('DETAIL');
         setDetailItem(item);
+        setPrevBookDetail(item);
     }, [item]);
 
     return (
