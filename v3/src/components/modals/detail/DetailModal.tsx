@@ -7,15 +7,15 @@ import { deleteBook, refreshBook, updateBook } from '@/src/hooks/useBookStore';
 import { useAdminStore } from '@/src/hooks/useAdminStore';
 import DetailItemCard from './DetailItemCard';
 import CategoryCard from '../../CategoryCard';
+import DetailEditCard from './DetailEditCard';
 
 const DetailModal = () => {
     const item = useModalStore((s) => s.bookDetail) as BookDTO;
+    const [editMode, setEditMode] = useState(false);
     const categories = useCategoryStore((s) => s.categories);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const categoryItem = useMemo(() => getCategoryById(item.category), [item.category, categories]);
-
     const isAdmin = useAdminStore((s) => s.login);
-    const [editMode, setEditMode] = useState(false);
 
     const closeModal = useCallback((e?: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e?.stopPropagation();
@@ -43,6 +43,7 @@ const DetailModal = () => {
     const handleCommit = useCallback(() => {
         updateBook(item.id, item);
         refreshBook();
+        setEditMode(false);
     }, [item]);
 
     return (
@@ -79,21 +80,41 @@ const DetailModal = () => {
                 </div>
                 <hr />
                 <div className='flex flex-col gap-2'>
-                    <DetailItemCard label='title' text={item.title} />
-                    <DetailItemCard label='author' text={item.author} />
+                    {editMode ? <DetailEditCard label='title' /> : <DetailItemCard label='title' text={item.title} />}
+                    {editMode ? (
+                        <DetailEditCard label='author' />
+                    ) : (
+                        <DetailItemCard label='author' text={item.author} />
+                    )}
                     <div className='grid grid-cols-2'>
                         <p className='uppercase'>category</p>
                         {categoryItem && <CategoryCard item={categoryItem} customStyle=' truncate mr-auto' />}
                     </div>
                     <DetailItemCard label='count' text={item.count} />
                     <DetailItemCard label='rating' text={item.rating} />
-                    <DetailItemCard label='read at' text={item.readAt.slice(0, 10)} />
-                    <DetailItemCard label='create at' text={item.createAt.slice(0, 10)} />
-                    <DetailItemCard label='updated at' text={item.updatedAt.slice(0, 10)} />
-                    <div className='flex flex-col gap-2'>
-                        <p className='uppercase'>comment</p>
-                        <p>{item.comment}</p>
-                    </div>
+                    {editMode ? (
+                        <DetailEditCard label='readAt' type='date' />
+                    ) : (
+                        <DetailItemCard label='read at' text={item.readAt.slice(0, 10)} />
+                    )}
+                    {editMode ? (
+                        <DetailEditCard label='createAt' type='date' />
+                    ) : (
+                        <DetailItemCard label='create at' text={item.createAt.slice(0, 10)} />
+                    )}
+                    {editMode ? (
+                        <DetailEditCard label='updatedAt' type='date' />
+                    ) : (
+                        <DetailItemCard label='updated at' text={item.updatedAt.slice(0, 10)} />
+                    )}
+                    {editMode ? (
+                        <DetailEditCard label='comment' custumStyle='flex flex-col gap-2' />
+                    ) : (
+                        <div className='flex flex-col gap-2'>
+                            <p className='uppercase'>comment</p>
+                            <p>{item.comment}</p>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
