@@ -17,3 +17,10 @@ export function setModalMode(mode: MODALS) {
 export function setDetailItem(item: BookDTO | null) {
     useModalStore.setState({ bookDetail: item });
 }
+
+export function setDetailPartialItem(item: Partial<BookDTO>) {
+    useModalStore.setState((prev) => {
+        if (!prev.bookDetail) return { bookDetail: null };
+        return { bookDetail: { ...prev.bookDetail, ...item } };
+    });
+}

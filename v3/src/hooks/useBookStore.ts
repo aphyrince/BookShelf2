@@ -55,7 +55,7 @@ export async function getBook(id: string) {
     }
 }
 
-export async function updateBook(id: string, input: Book) {
+export async function updateBook(id: string, input: BookDTO) {
     useBookStore.setState({ error: null });
     try {
         const book = await requestJSON<BookDTO>(`/api/books/${encodeURIComponent(id)}`, {

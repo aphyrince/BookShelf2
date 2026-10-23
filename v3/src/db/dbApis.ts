@@ -29,6 +29,20 @@ export function parseWithIdBook2DTO(book: WithId<Book>): BookDTO {
     };
 }
 
+export function parseBookDTO2Book(dto: BookDTO): Book {
+    return {
+        title: dto.title,
+        author: dto.author,
+        readAt: dto.readAt ? new Date(dto.readAt) : undefined,
+        createdAt: dto.createAt ? new Date(dto.createAt) : undefined,
+        updatedAt: dto.updatedAt ? new Date(dto.updatedAt) : undefined,
+        comment: dto.comment,
+        count: dto.count,
+        rating: dto.rating,
+        category: dto.category,
+    };
+}
+
 async function getBooksCollection() {
     const client = await clientPromise;
     return client.db(DB_NAME).collection<Book>(COLLECTION_NAME);

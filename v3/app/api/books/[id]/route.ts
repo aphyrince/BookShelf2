@@ -1,4 +1,4 @@
-import { deleteBook, getBookById, parseWithIdBook2DTO, updateBook } from '@/src/db/dbApis';
+import { deleteBook, getBookById, parseBookDTO2Book, parseWithIdBook2DTO, updateBook } from '@/src/db/dbApis';
 import { ObjectId } from 'mongodb';
 
 type RouteContext = { params: Promise<{ id: string }> };
@@ -29,15 +29,17 @@ export async function PUT(request: Request, { params }: RouteContext) {
         return Response.json({ error: '올바르지 않은 책 ID입니다.' }, { status: 400 });
     }
 
-    let book: Book;
+    let bookDTO: BookDTO;
     try {
-        book = (await request.json()) as Book;
+        bookDTO = (await request.json()) as BookDTO;
     } catch (error) {
         if (error instanceof SyntaxError) {
             return Response.json({ error: '요청 본문이 올바른 JSON이 아닙니다.' }, { status: 400 });
         }
         throw error;
     }
+
+    const book = parseBookDTO2Book(bookDTO);
 
     try {
         const found = await updateBook(id, book);
