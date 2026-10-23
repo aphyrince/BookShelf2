@@ -2,7 +2,7 @@
 
 import Header from '@/src/components/Header';
 import CategoryModal from '@/src/components/modals/category/CategoryModal';
-import DetailModal from '@/src/components/modals/DetailModal';
+import DetailModal from '@/src/components/modals/detail/DetailModal';
 import Table from '@/src/components/Table';
 import { refreshBook } from '@/src/hooks/useBookStore';
 import { refreshCategory } from '@/src/hooks/useCategoryStore';

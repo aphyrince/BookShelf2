@@ -1,11 +1,12 @@
 import { setDetailItem, setModalMode, useModalStore } from '@/src/hooks/useModal';
 import HeaderButton from '@/src/shared/HeaderButton';
 import React, { useCallback, useMemo, useState } from 'react';
-import DetailItemCard from '../DetailItemCard';
-import CategoryCard from '../CategoryCard';
+
 import { getCategoryById, useCategoryStore } from '@/src/hooks/useCategoryStore';
 import { deleteBook, refreshBook } from '@/src/hooks/useBookStore';
 import { useAdminStore } from '@/src/hooks/useAdminStore';
+import DetailItemCard from './DetailItemCard';
+import CategoryCard from '../../CategoryCard';
 
 const DetailModal = () => {
     const item = useModalStore((s) => s.bookDetail) as BookDTO;
