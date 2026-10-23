@@ -3,7 +3,7 @@ import HeaderButton from '@/src/shared/HeaderButton';
 import React, { useCallback, useMemo, useState } from 'react';
 
 import { getCategoryById, useCategoryStore } from '@/src/hooks/useCategoryStore';
-import { deleteBook, refreshBook } from '@/src/hooks/useBookStore';
+import { deleteBook, refreshBook, updateBook } from '@/src/hooks/useBookStore';
 import { useAdminStore } from '@/src/hooks/useAdminStore';
 import DetailItemCard from './DetailItemCard';
 import CategoryCard from '../../CategoryCard';
@@ -40,7 +40,10 @@ const DetailModal = () => {
         }
     }, [closeModal, item.id]);
 
-    const handleCommit = useCallback(() => {}, []);
+    const handleCommit = useCallback(() => {
+        updateBook(item.id, item);
+        refreshBook();
+    }, [item]);
 
     return (
         <div className='absolute inset-0 flex justify-center items-center bg-black/50' onClick={closeModal}>
