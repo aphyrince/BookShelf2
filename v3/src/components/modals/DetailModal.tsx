@@ -5,6 +5,7 @@ import DetailItemCard from '../DetailItemCard';
 import CategoryCard from '../CategoryCard';
 import { getCategoryById, useCategoryStore } from '@/src/hooks/useCategoryStore';
 import { deleteBook, refreshBook } from '@/src/hooks/useBookStore';
+import { useAdminStore } from '@/src/hooks/useAdminStore';
 
 const DetailModal = () => {
     const item = useModalStore((s) => s.bookDetail) as BookDTO;
@@ -12,6 +13,7 @@ const DetailModal = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const categoryItem = useMemo(() => getCategoryById(item.category), [item.category, categories]);
 
+    const isAdmin = useAdminStore((s) => s.login);
     const [editMode, setEditMode] = useState(false);
 
     const closeModal = useCallback((e?: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -21,8 +23,9 @@ const DetailModal = () => {
     }, []);
 
     const handleEditClick = useCallback(() => {
+        if (!isAdmin) return;
         setEditMode(true);
-    }, []);
+    }, [isAdmin]);
 
     const handleCancel = useCallback(() => {
         setEditMode(false);
@@ -66,7 +69,7 @@ const DetailModal = () => {
                         />
                     )}
                     {editMode && <HeaderButton text='cancel' onClick={handleCancel} />}
-                    {!editMode && <HeaderButton text='edit' onClick={handleEditClick} />}
+                    {isAdmin && !editMode && <HeaderButton text='edit' onClick={handleEditClick} />}
 
                     <HeaderButton text='X' onClick={closeModal} />
                 </div>
