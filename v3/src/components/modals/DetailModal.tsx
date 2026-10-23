@@ -1,9 +1,10 @@
 import { setDetailItem, setModalMode, useModalStore } from '@/src/hooks/useModal';
 import HeaderButton from '@/src/shared/HeaderButton';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import DetailItemCard from '../DetailItemCard';
 import CategoryCard from '../CategoryCard';
 import { getCategoryById, useCategoryStore } from '@/src/hooks/useCategoryStore';
+import useDB from '@/src/hooks/useDB';
 
 const DetailModal = () => {
     const item = useModalStore((s) => s.bookDetail) as BookDTO;
@@ -11,18 +12,40 @@ const DetailModal = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const categoryItem = useMemo(() => getCategoryById(item.category), [item.category, categories]);
 
+    const [editMode, setEditMode] = useState(false);
+
+    const { deleteBook, updateBook, refresh } = useDB();
+
     const closeModal = useCallback((e?: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e?.stopPropagation();
         setModalMode('NONE');
         setDetailItem(null);
     }, []);
 
+    const handleEditClick = useCallback(() => {
+        setEditMode(true);
+    }, []);
+
+    const handleCancel = useCallback(() => {
+        setEditMode(false);
+    }, []);
+
+    const handleDelete = useCallback(() => {
+        if (confirm('삭제하시겠습니까?')) {
+            deleteBook(item.id);
+            refresh();
+            closeModal();
+        }
+    }, [closeModal, item.id, deleteBook, refresh]);
+
+    const handleCommit = useCallback(() => {}, []);
+
     return (
         <div className='absolute inset-0 flex justify-center items-center bg-black/50' onClick={closeModal}>
             <div
                 className='fixed top-1/2 left-1/2 -translate-1/2 
                            flex flex-col gap-2 md:gap-4
-                           w-4/5 min-w-100 p-4 md:p-8 
+                           max-w-200 w-4/5 min-w-100 p-4 md:p-8 
                           bg-slate-50 dark:bg-slate-900 dark:border dark:border-white
                            rounded-xl overflow-hidden'
                 onClick={(e) => e.stopPropagation()}
@@ -30,7 +53,23 @@ const DetailModal = () => {
                 {/* 디테일 헤더 */}
                 <div className='flex items-center gap-4'>
                     <p className='flex-1 text-2xl '>Detail</p>
-                    <HeaderButton text='edit' onClick={() => {}} />
+                    {editMode && (
+                        <HeaderButton
+                            text='delete'
+                            onClick={handleDelete}
+                            customStyle='hover:bg-red-500 hover:border-transparent active:border-red-900'
+                        />
+                    )}
+                    {editMode && (
+                        <HeaderButton
+                            text='commit'
+                            onClick={handleCommit}
+                            customStyle='hover:bg-green-500 hover:border-transparent active:border-green-900 col-span-2'
+                        />
+                    )}
+                    {editMode && <HeaderButton text='cancel' onClick={handleCancel} />}
+                    {!editMode && <HeaderButton text='edit' onClick={handleEditClick} />}
+
                     <HeaderButton text='X' onClick={closeModal} />
                 </div>
                 <hr />
