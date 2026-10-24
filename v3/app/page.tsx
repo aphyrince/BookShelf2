@@ -1,6 +1,7 @@
 'use client';
 
 import Header from '@/src/components/Header';
+import AddBookModal from '@/src/components/modals/addBook/AddBookModal';
 import CategoryModal from '@/src/components/modals/category/CategoryModal';
 import DetailModal from '@/src/components/modals/detail/DetailModal';
 import Table from '@/src/components/Table';
@@ -27,6 +28,7 @@ const Page = () => {
             <hr />
             {activeModal === 'CATEGORY' && <CategoryModal />}
             {activeModal === 'DETAIL' && <DetailModal />}
+            {activeModal === 'ADD' && <AddBookModal />}
             <Table />
         </div>
     );

@@ -6,6 +6,17 @@ const DB_NAME = process.env.DB_NAME as string;
 const COLLECTION_NAME = process.env.COLLECTION_NAME as string;
 const COLLECTION_PSWD = process.env.COLLECTION_PSWD as string;
 
+function dateToISOString(value?: Date | string | null): string {
+    if (!value) return '';
+
+    const date = value instanceof Date ? value : new Date(value);
+    if (Number.isNaN(date.getTime())) {
+        throw new Error('책 데이터에 올바르지 않은 날짜가 있습니다.');
+    }
+
+    return date.toISOString();
+}
+
 export async function login(password: string): Promise<boolean> {
     const client = await clientPromise;
     const passwordCollection = client.db(DB_NAME).collection<Password>(COLLECTION_PSWD);
@@ -19,9 +30,9 @@ export function parseWithIdBook2DTO(book: WithId<Book>): BookDTO {
         id: book._id.toString(),
         title: book.title,
         author: book.author || '',
-        readAt: book.readAt?.toISOString() || '',
-        createAt: book.createdAt?.toISOString() || '',
-        updatedAt: book.updatedAt?.toISOString() || '',
+        readAt: dateToISOString(book.readAt),
+        createAt: dateToISOString(book.createdAt),
+        updatedAt: dateToISOString(book.updatedAt),
         comment: book.comment || '',
         count: book.count || 1,
         rating: book.rating || 0,

@@ -3,6 +3,7 @@ import { createBook, getBookById, getBooks, parseWithIdBook2DTO } from '@/src/db
 export async function GET() {
     try {
         const books = await getBooks();
+        console.dir(books);
         const response: BookDTO[] = books.map((book) => parseWithIdBook2DTO(book));
 
         return Response.json(response);
@@ -15,7 +16,13 @@ export async function GET() {
 export async function POST(request: Request) {
     let newBook: Book;
     try {
-        newBook = (await request.json()) as Book;
+        const body = (await request.json()) as Omit<Book, 'readAt'> & { readAt?: string };
+        const readAt = body.readAt ? new Date(body.readAt) : undefined;
+        if (readAt && Number.isNaN(readAt.getTime())) {
+            return Response.json({ error: '읽은 날짜가 올바르지 않습니다.' }, { status: 400 });
+        }
+
+        newBook = { ...body, readAt };
     } catch (error) {
         if (error instanceof SyntaxError) {
             return Response.json({ error: '요청 본문이 올바른 JSON이 아닙니다.' }, { status: 400 });
