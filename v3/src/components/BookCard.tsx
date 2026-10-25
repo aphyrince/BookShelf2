@@ -20,19 +20,19 @@ const BookCard = ({ item }: Props) => {
     return (
         <div
             key={item.id}
-            className='grid grid-cols-[3fr_1fr_1fr_1fr_1fr_2fr] md:grid-cols-[1fr_80px_80px_80px_80px_2fr] gap-2 md:gap-4 items-center p-2 text-sm text-center'
+            className='grid grid-cols-[3fr_2fr_1fr_1fr_1fr_2fr] md:grid-cols-[1fr_80px_80px_80px_80px_2fr] gap-1 md:gap-4 items-center p-2 text-xs md:text-sm text-center'
             onClick={handleOpenDetail}
         >
             <div className='flex flex-col gap-1 text-left truncate'>
                 <p className='font-bold truncate'>{item.title}</p>
-                <p className='text-xs text-slate-500 truncate'>{item.author}</p>
+                <p className='text-[0.6rem] md:text-xs text-slate-500 truncate'>{item.author}</p>
             </div>
             {/* <p>{item.category}</p> */}
-            {categoryItem && <CategoryCard item={categoryItem} customStyle=' truncate' />}
-            <p className='text-xs'>{item.readAt.slice(0, 10)}</p>
+            {categoryItem && <CategoryCard item={categoryItem} customStyle=' truncate m-auto not-md:text-[0.6rem]' />}
+            <p className='text-[0.6rem] md:text-xs'>{item.readAt.slice(0, 10)}</p>
             <p>{item.count}</p>
             <p>{item.rating}</p>
-            <p className='text-left truncate'>{item.comment}</p>
+            <p className='text-center md:text-left truncate'>{item.comment}</p>
         </div>
     );
 };
