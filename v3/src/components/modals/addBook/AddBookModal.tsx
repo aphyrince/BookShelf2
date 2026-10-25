@@ -41,11 +41,10 @@ const AddBookModal = () => {
     }, [item, closeModal]);
 
     return (
-        <div className='absolute inset-0 flex justify-center items-center bg-black/50' onClick={closeModal}>
+        <div className='fixed inset-0 flex justify-center items-center p-4 bg-black/50' onClick={closeModal}>
             <div
-                className='fixed top-1/2 left-1/2 -translate-1/2 
-                           flex flex-col gap-2 md:gap-4
-                           max-w-200 w-4/5 min-w-100 p-4 md:p-8 
+                className='flex flex-col gap-2 md:gap-4
+                           w-full p-4 md:p-8 
                           bg-slate-50 dark:bg-slate-900 dark:border dark:border-white
                            rounded-xl overflow-hidden'
                 onClick={handleModalClick}
