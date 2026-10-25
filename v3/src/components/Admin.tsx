@@ -92,20 +92,18 @@ const Admin = () => {
                                     </p>
                                 )}
                                 <div className='flex justify-end gap-2'>
-                                    <button
-                                        className='rounded-md border border-slate-400 px-3 py-2 text-sm'
+                                    <HeaderButton
+                                        text='cancel'
                                         onClick={handleCloseDialog}
-                                        type='button'
-                                    >
-                                        취소
-                                    </button>
-                                    <button
-                                        className='rounded-md bg-slate-900 px-3 py-2 text-sm text-white disabled:opacity-50 dark:bg-white dark:text-slate-900'
-                                        disabled={loading || !password}
+                                        customStyle='not-md:text-sm not-md:px-4 not-md:py-2'
+                                    />
+                                    <HeaderButton
+                                        text={loading ? 'login...' : 'login'}
+                                        onClick={() => {}}
                                         type='submit'
-                                    >
-                                        {loading ? '로그인 중...' : '로그인'}
-                                    </button>
+                                        disabled={loading || !password}
+                                        customStyle='not-md:text-sm not-md:px-4 not-md:py-2 disabled:opacity-50'
+                                    />
                                 </div>
                             </form>
                         ) : (
@@ -114,20 +112,19 @@ const Admin = () => {
                                     로그아웃 하시겠습니까?
                                 </h2>
                                 <div className='flex justify-end gap-2'>
-                                    <button
-                                        className='rounded-md border border-slate-400 px-3 py-2 text-sm'
+                                    <HeaderButton
+                                        text='cancel'
                                         onClick={handleCloseDialog}
-                                        type='button'
-                                    >
-                                        취소
-                                    </button>
-                                    <button
-                                        className='rounded-md bg-red-600 px-3 py-2 text-sm text-white'
+                                        customStyle='not-md:text-sm not-md:px-4 not-md:py-2'
+                                    />
+                                    <HeaderButton
+                                        text='logout'
                                         onClick={handleLogout}
-                                        type='button'
-                                    >
-                                        로그아웃
-                                    </button>
+                                        customStyle='not-md:text-sm not-md:px-4 not-md:py-2 md:bg-red-600 not-md:bg-red-600 text-white tracking-wide border-0
+                                         hover:bg-white md:hover:text-red-600 md:outline-2 md:outline-transparent md:hover:outline-red-600
+                                         hover:dark:bg-white hover:dark:text-red-600 
+                                         '
+                                    />
                                 </div>
                             </div>
                         )}
