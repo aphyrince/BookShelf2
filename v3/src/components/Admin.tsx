@@ -67,7 +67,7 @@ const Admin = () => {
                     <section
                         aria-labelledby='admin-dialog-title'
                         aria-modal='true'
-                        className='w-full max-w-sm rounded-xl bg-white p-6 text-slate-900 shadow-xl dark:bg-slate-900 dark:text-white'
+                        className='w-full max-w-sm rounded-xl bg-white border border-transparent p-6 text-slate-900 shadow-xl dark:bg-slate-900 dark:text-white dark:border-white'
                         onClick={(event) => event.stopPropagation()}
                         role='dialog'
                     >
