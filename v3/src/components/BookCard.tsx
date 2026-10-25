@@ -20,7 +20,7 @@ const BookCard = ({ item }: Props) => {
     return (
         <div
             key={item.id}
-            className='grid grid-cols-[3fr_2fr_1fr_1fr_1fr_2fr] md:grid-cols-[1fr_80px_80px_80px_80px_2fr] gap-1 md:gap-4 items-center p-2 text-xs md:text-sm text-center'
+            className='grid grid-cols-[3fr_2fr_1fr_1fr_1fr_2fr] md:grid-cols-[1fr_80px_80px_80px_80px_2fr] gap-1 md:gap-4 items-center p-2 text-xs md:text-sm text-center cursor-pointer hover:bg-slate-100 transition-colors duration-300 outline-0 hover:outline-1'
             onClick={handleOpenDetail}
         >
             <div className='flex flex-col gap-1 text-left truncate'>
