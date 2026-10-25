@@ -4,7 +4,6 @@ import clientPromise from './mongodb';
 
 const DB_NAME = process.env.DB_NAME as string;
 const COLLECTION_NAME = process.env.COLLECTION_NAME as string;
-const COLLECTION_PSWD = process.env.COLLECTION_PSWD as string;
 
 function dateToISOString(value?: Date | string | null): string {
     if (!value) return '';
@@ -15,14 +14,6 @@ function dateToISOString(value?: Date | string | null): string {
     }
 
     return date.toISOString();
-}
-
-export async function login(password: string): Promise<boolean> {
-    const client = await clientPromise;
-    const passwordCollection = client.db(DB_NAME).collection<Password>(COLLECTION_PSWD);
-
-    const result = await passwordCollection.findOne({ password: password });
-    return result ? true : false;
 }
 
 export function parseWithIdBook2DTO(book: WithId<Book>): BookDTO {

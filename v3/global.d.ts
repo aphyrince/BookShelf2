@@ -24,10 +24,6 @@ interface BookDTO {
     category: string;
 }
 
-interface Password {
-    password: string;
-}
-
 type MODALS = 'NONE' | 'CATEGORY' | 'ADD' | 'DETAIL';
 
 interface CategoryDTO {

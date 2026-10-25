@@ -28,7 +28,7 @@ For local development, login is allowed on `http://localhost` only. A device con
 
 ## Admin API sessions
 
-Set `ADMIN_SESSION_SECRET` to a unique random secret of at least 32 bytes in the Vercel project environment (and in `.env.local` for local development). For example, generate one with `node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"`. Successful login sets a seven-day, `HttpOnly`, `SameSite=Lax` session cookie; book and category create, update, and delete APIs reject requests without a valid signature. Logging out expires the cookie.
+Set `ADMIN_PASSWORD` to the administrator password and `ADMIN_SESSION_SECRET` to a unique random secret of at least 32 bytes in the Vercel project environment (and in `.env.local` for local development). Keep both values server-side: do not prefix them with `NEXT_PUBLIC_` or commit them to the repository. Generate a session secret with `node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"`. Successful login checks `ADMIN_PASSWORD` and sets a seven-day, `HttpOnly`, `SameSite=Lax` session cookie; book and category create, update, and delete APIs reject requests without a valid signature. Logging out expires the cookie.
 
 ## Learn More
 

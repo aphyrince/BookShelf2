@@ -1,4 +1,4 @@
-import { login } from '@/src/db/dbApis';
+import { createHash, timingSafeEqual } from 'node:crypto';
 import { createAdminSessionCookie } from '@/src/auth/adminSession';
 
 export async function POST(request: Request) {
@@ -18,7 +18,10 @@ export async function POST(request: Request) {
 
     let password: string;
     try {
-        const payload = (await request.json()) as Password;
+        const payload = (await request.json()) as { password?: unknown };
+        if (typeof payload.password !== 'string' || payload.password.length === 0) {
+            return Response.json({ error: '비밀번호를 입력해 주세요.' }, { status: 400 });
+        }
         password = payload.password;
     } catch (error) {
         if (error instanceof SyntaxError) {
@@ -28,7 +31,15 @@ export async function POST(request: Request) {
     }
 
     try {
-        const authenticated = await login(password);
+        const configuredPassword = process.env.ADMIN_PASSWORD;
+        if (!configuredPassword) {
+            console.error('ADMIN_PASSWORD 환경 변수가 설정되지 않았습니다.');
+            return Response.json({ error: '로그인 설정이 완료되지 않았습니다.' }, { status: 500 });
+        }
+
+        const submittedHash = createHash('sha256').update(password, 'utf8').digest();
+        const configuredHash = createHash('sha256').update(configuredPassword, 'utf8').digest();
+        const authenticated = timingSafeEqual(submittedHash, configuredHash);
         if (!authenticated) {
             return Response.json({ error: '비밀번호가 올바르지 않습니다.' }, { status: 401 });
         }
