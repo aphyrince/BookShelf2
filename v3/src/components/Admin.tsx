@@ -18,14 +18,6 @@ const Admin = () => {
         setDialogMode(login ? 'LOGOUT' : 'LOGIN');
     }, [login]);
 
-    const handleCategoryPress = useCallback(() => {
-        setModalMode('CATEGORY');
-    }, []);
-
-    const handleAddBookPress = useCallback(() => {
-        setModalMode('ADD');
-    }, []);
-
     const handleCloseDialog = useCallback(() => {
         setDialogMode(null);
         setPassword('');
@@ -60,8 +52,6 @@ const Admin = () => {
     return (
         <>
             <div className={`${login && 'admin'} flex justify-center items-center gap-4`}>
-                {login && <HeaderButton text={'Add Book'} onClick={handleAddBookPress} />}
-                {login && <HeaderButton text={'Edit Category'} onClick={handleCategoryPress} />}
                 <HeaderButton
                     text={'Admin'}
                     onClick={handleAdminPress}
