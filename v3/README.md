@@ -1,5 +1,37 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## 환경 변수
+
+프로젝트 루트(`v3/`)에 `.env.local` 파일을 만들고 아래 값을 설정하세요. 이 환경 변수들은 서버에서만 사용하므로 `NEXT_PUBLIC_` 접두사를 붙이지 마세요.
+
+| 변수 | 필수 | 설명 |
+| --- | --- | --- |
+| `MONGODB_URI` | 예 | MongoDB 연결 URI |
+| `DB_NAME` | 예 | 사용할 MongoDB 데이터베이스 이름 |
+| `COLLECTION_NAME` | 예 | 책 데이터를 저장할 컬렉션 이름 |
+| `COLLECTION_CATEGORY` | 예 | 카테고리 데이터를 저장할 컬렉션 이름 |
+| `ADMIN_PASSWORD` | 예 | 관리자 로그인 비밀번호 |
+| `ADMIN_SESSION_SECRET` | 예 | 관리자 세션 서명용 비밀값. UTF-8 기준 32바이트 이상이어야 합니다. |
+
+`.env.local` 예시:
+
+```dotenv
+MONGODB_URI=mongodb+srv://<username>:<password>@<cluster-url>/
+DB_NAME=bookshelf
+COLLECTION_NAME=books
+COLLECTION_CATEGORY=categories
+ADMIN_PASSWORD=<strong-admin-password>
+ADMIN_SESSION_SECRET=<random-secret-at-least-32-bytes>
+```
+
+세션 비밀값은 다음 명령으로 생성할 수 있습니다.
+
+```bash
+node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"
+```
+
+`.env.local`은 로컬 개발용입니다. 배포 환경에서는 배포 플랫폼의 환경 변수 설정에 같은 값을 등록하세요. 비밀번호와 비밀값은 저장소에 커밋하거나 다른 사람과 공유하지 마세요.
+
 ## Getting Started
 
 First, run the development server:
