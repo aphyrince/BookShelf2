@@ -86,7 +86,7 @@ const AddBookModal = () => {
                     </div>
                     <div className='grid grid-cols-2'>
                         <p className='uppercase'>category</p>
-                        <div className='flex' onClick={(e) => e.stopPropagation()}>
+                        <div className='flex relative' onClick={(e) => e.stopPropagation()}>
                             {categoryItem ? (
                                 <CategoryCard
                                     item={categoryItem}

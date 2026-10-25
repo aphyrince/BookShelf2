@@ -105,9 +105,9 @@ const DetailModal = () => {
                     ) : (
                         <DetailItemCard label='author' text={item.author} />
                     )}
-                    <div className='grid grid-cols-2 relative'>
+                    <div className='grid grid-cols-2'>
                         <p className='uppercase'>category</p>
-                        <div className='flex'>
+                        <div className='flex relative'>
                             {categoryItem && (
                                 <CategoryCard
                                     item={categoryItem}

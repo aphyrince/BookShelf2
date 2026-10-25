@@ -13,7 +13,10 @@ const CategorySelector = ({ show, onSelect, onClose, custumStyle = '' }: Props) 
     const categories = useCategoryStore((s) => s.categories);
 
     return (
-        <div className={`relative ${custumStyle}`} onClick={(e) => e.stopPropagation()}>
+        <div
+            className={`relative ${custumStyle} not-md:absolute not-md:w-full top-full -left-2 translate-y-1`}
+            onClick={(e) => e.stopPropagation()}
+        >
             {show && (
                 <div className='absolute left-2 w-full h-50 overflow-auto flex flex-col gap-2 items-center bg-slate-50 dark:bg-slate-900 p-2 border rounded-2xl'>
                     {categories?.map((category) => (
