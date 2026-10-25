@@ -33,12 +33,13 @@ const CategoryModal = () => {
                 onClick={handleModalClick}
             >
                 {/* 카테고리 헤더 */}
-                <div className='flex items-center gap-4'>
+                <div className='flex items-center gap-4 '>
                     <p className='flex-1 text-2xl '>Category</p>
                     <HeaderButton text='X' onClick={closeModal} />
                 </div>
+                <hr />
                 <div className='flex flex-1 min-h-0 gap-2 md:gap-4'>
-                    <div className='flex-1 flex flex-col gap-3 items-center py-3 min-h-0 overflow-y-auto'>
+                    <div className='flex-1 flex flex-col gap-3 items-center py-3 min-h-0 overflow-y-auto border border-black dark:border-white rounded-3xl'>
                         {/* 카테고리 카드 */}
                         {categories &&
                             categories.map((item) => (
@@ -46,7 +47,7 @@ const CategoryModal = () => {
                                     key={item.id}
                                     item={item}
                                     onClick={() => handleCategoryClick(item)}
-                                    customStyle='cursor-pointer'
+                                    customStyle='cursor-pointer not-md:text-sm'
                                 />
                             ))}
                     </div>

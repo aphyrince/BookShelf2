@@ -44,7 +44,7 @@ const CategoryEditor = () => {
     }, [handleCancel, item.id]);
 
     return (
-        <div className='flex-2 flex flex-col box-border p-4 gap-4 justify-between h-full border border-black dark:border-white rounded-3xl'>
+        <div className='flex-2 flex flex-col box-border p-4 gap-4 justify-between h-full border border-black dark:border-white rounded-3xl not-md:text-sm'>
             <div className='flex flex-col gap-4'>
                 <input
                     className='outline outline-slate-400 p-1 rounded-lg active:outline-slate-700 focus:outline-slate-700 duration-200'
