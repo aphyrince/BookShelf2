@@ -15,24 +15,20 @@ export function logout() {
     useAdminStore.setState({ login: false });
 }
 
-export function attemptLogin(password: string) {
+export async function attemptLogin(password: string): Promise<boolean> {
     useAdminStore.setState({ loading: true });
-    requestLogin(password)
-        .then((result) => useAdminStore.setState({ login: result }))
-        .catch((error) => {
-            console.error(error);
-        })
-        .finally(() => useAdminStore.setState({ loading: false }));
+    try {
+        const result = await requestLogin(password);
+        useAdminStore.setState({ login: result });
+        return result;
+    } finally {
+        useAdminStore.setState({ loading: false });
+    }
 }
 
 async function requestLogin(password: string) {
-    try {
-        const result = await requestJSON<boolean>('/api/login', {
-            method: 'POST',
-            body: JSON.stringify({ password }),
-        });
-        return result;
-    } catch (error) {
-        throw error;
-    }
+    return requestJSON<boolean>('/api/login', {
+        method: 'POST',
+        body: JSON.stringify({ password }),
+    });
 }
