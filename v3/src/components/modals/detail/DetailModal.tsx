@@ -1,6 +1,13 @@
 'use client';
 
-import { setDetail2Prev, setDetailItem, setModalMode, setPrevBookDetail, useModalStore } from '@/src/hooks/useModal';
+import {
+    setDetail2Prev,
+    setDetailItem,
+    setDetailPartialItem,
+    setModalMode,
+    setPrevBookDetail,
+    useModalStore,
+} from '@/src/hooks/useModal';
 import HeaderButton from '@/src/shared/HeaderButton';
 import React, { useCallback, useMemo, useState } from 'react';
 
@@ -10,7 +17,7 @@ import { useAdminStore } from '@/src/hooks/useAdminStore';
 import DetailItemCard from './DetailItemCard';
 import CategoryCard from '../../CategoryCard';
 import DetailEditCard from './DetailEditCard';
-import DetailCategoryEditor from './DetailCategoryEditor';
+import CategorySelector from '../../CategorySelector';
 
 const DetailModal = () => {
     const item = useModalStore((s) => s.bookDetail) as BookDTO;
@@ -112,18 +119,16 @@ const DetailModal = () => {
                                     }}
                                 />
                             )}
-                            {editMode && categories && (
-                                <DetailCategoryEditor
-                                    categories={categories}
+                            {editMode && (
+                                <CategorySelector
                                     show={showCategoryList}
                                     onClose={() => setShowCategoryList(false)}
+                                    onSelect={(category) => {
+                                        setDetailPartialItem({ category: category.id });
+                                    }}
+                                    custumStyle='flex-1'
                                 />
                             )}
-                            {/* <div className='absolute top-0 right-0 size-50 bg-slate-50 overflow-auto border rounded-xl p-2 flex flex-col gap-2 items-center'>
-                            {categories?.map((category) => (
-                                <CategoryCard key={category.id} item={category} />
-                            ))}
-                        </div> */}
                         </div>
                     </div>
                     {editMode ? (
