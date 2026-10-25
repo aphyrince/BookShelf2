@@ -1,11 +1,14 @@
 import React, { useCallback } from 'react';
 import Admin from './Admin';
-import { toggleTheme } from '../hooks/useThemeStroe';
 import HeaderButton from '../shared/HeaderButton';
 import { useAdminStore } from '../hooks/useAdminStore';
 import { setModalMode } from '../hooks/useModal';
 
-const Header = () => {
+interface Props {
+    onToggleTheme: () => void;
+}
+
+const Header = ({ onToggleTheme }: Props) => {
     const login = useAdminStore((s) => s.login);
 
     const handleCategoryPress = useCallback(() => {
@@ -30,7 +33,7 @@ const Header = () => {
                 />
             )}
             <Admin />
-            <HeaderButton text={'Dark'} onClick={toggleTheme} />
+            <HeaderButton text={'Dark'} onClick={onToggleTheme} />
         </header>
     );
 };

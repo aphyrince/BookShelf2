@@ -1,41 +1,11 @@
-'use client';
+import { cookies } from 'next/headers';
+import PageContent from '@/src/components/PageContent';
 
-import Header from '@/src/components/Header';
-import AddBookModal from '@/src/components/modals/addBook/AddBookModal';
-import CategoryModal from '@/src/components/modals/category/CategoryModal';
-import DetailModal from '@/src/components/modals/detail/DetailModal';
-import Table from '@/src/components/Table';
-import { refreshBook } from '@/src/hooks/useBookStore';
-import { refreshCategory } from '@/src/hooks/useCategoryStore';
-import { useModalStore } from '@/src/hooks/useModal';
-import { useThemeStore } from '@/src/hooks/useThemeStroe';
-import React, { useEffect } from 'react';
+const Page = async () => {
+    const cookieStore = await cookies();
+    const initialDarkTheme = cookieStore.get('theme')?.value === 'dark';
 
-const Page = () => {
-    const darkMode = useThemeStore((s) => s.darkTheme);
-    const activeModal = useModalStore((s) => s.activeModal);
-
-    useEffect(() => {
-        refreshBook();
-        refreshCategory();
-    }, []);
-
-    return (
-        <div
-            className={`${darkMode && 'dark'} flex flex-col gap-4 md:gap-8 
-                bg-slate-50 text-slate-900 
-                dark:bg-slate-800 dark:text-white 
-                min-h-screen p-4 md:p-12 
-                transition-colors duration-300`}
-        >
-            <Header />
-            <hr />
-            {activeModal === 'CATEGORY' && <CategoryModal />}
-            {activeModal === 'DETAIL' && <DetailModal />}
-            {activeModal === 'ADD' && <AddBookModal />}
-            <Table />
-        </div>
-    );
+    return <PageContent initialDarkTheme={initialDarkTheme} />;
 };
 
 export default Page;
