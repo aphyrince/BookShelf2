@@ -38,7 +38,7 @@ const CategoryModal = () => {
                     <HeaderButton text='X' onClick={closeModal} />
                 </div>
                 <div className='flex flex-1 min-h-0 gap-2 md:gap-4'>
-                    <div className='flex flex-col gap-3 items-center py-3 min-h-0 overflow-y-auto'>
+                    <div className='flex-1 flex flex-col gap-3 items-center py-3 min-h-0 overflow-y-auto'>
                         {/* 카테고리 카드 */}
                         {categories &&
                             categories.map((item) => (
