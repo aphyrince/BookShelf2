@@ -3,7 +3,6 @@
 import HeaderButton from '../shared/HeaderButton';
 import { attemptLogin, logout, useAdminStore } from '../hooks/useAdminStore';
 import { useCallback, useState, type FormEvent } from 'react';
-import { setModalMode } from '../hooks/useModal';
 import getErrorMessage from '../utils/getErrorMessage';
 
 const Admin = () => {
@@ -44,9 +43,14 @@ const Admin = () => {
         [password],
     );
 
-    const handleLogout = useCallback(() => {
-        logout();
-        setDialogMode(null);
+    const handleLogout = useCallback(async () => {
+        setLoginError(null);
+        try {
+            await logout();
+            setDialogMode(null);
+        } catch (error) {
+            setLoginError(getErrorMessage(error));
+        }
     }, []);
 
     return (
@@ -111,6 +115,11 @@ const Admin = () => {
                                 <h2 className='text-lg font-bold' id='admin-dialog-title'>
                                     로그아웃 하시겠습니까?
                                 </h2>
+                                {loginError && (
+                                    <p className='text-sm text-red-600' role='alert'>
+                                        {loginError}
+                                    </p>
+                                )}
                                 <div className='flex justify-end gap-2'>
                                     <HeaderButton
                                         text='cancel'
@@ -120,6 +129,7 @@ const Admin = () => {
                                     <HeaderButton
                                         text='logout'
                                         onClick={handleLogout}
+                                        disabled={loading}
                                         customStyle='not-md:text-sm not-md:px-4 not-md:py-2 md:bg-red-600 not-md:bg-red-600 text-white tracking-wide border-0
                                          hover:bg-white md:hover:text-red-600 md:outline-2 md:outline-transparent md:hover:outline-red-600
                                          hover:dark:bg-white hover:dark:text-red-600 

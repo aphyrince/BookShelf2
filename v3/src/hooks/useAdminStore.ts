@@ -11,8 +11,14 @@ export const useAdminStore = create<AdminState>()(() => ({
     loading: false,
 }));
 
-export function logout() {
-    useAdminStore.setState({ login: false });
+export async function logout() {
+    useAdminStore.setState({ loading: true });
+    try {
+        await requestJSON<{ success: true }>('/api/logout', { method: 'POST' });
+        useAdminStore.setState({ login: false });
+    } finally {
+        useAdminStore.setState({ loading: false });
+    }
 }
 
 export async function attemptLogin(password: string): Promise<boolean> {

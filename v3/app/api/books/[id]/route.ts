@@ -1,4 +1,5 @@
 import { deleteBook, getBookById, parseBookDTO2Book, parseWithIdBook2DTO, updateBook } from '@/src/db/dbApis';
+import { requireAdmin } from '@/src/auth/adminSession';
 import { ObjectId } from 'mongodb';
 
 type RouteContext = { params: Promise<{ id: string }> };
@@ -24,6 +25,9 @@ export async function GET(_request: Request, { params }: RouteContext) {
 }
 
 export async function PUT(request: Request, { params }: RouteContext) {
+    const unauthorized = requireAdmin(request);
+    if (unauthorized) return unauthorized;
+
     const { id } = await params;
     if (!ObjectId.isValid(id)) {
         return Response.json({ error: '올바르지 않은 책 ID입니다.' }, { status: 400 });
@@ -60,7 +64,10 @@ export async function PUT(request: Request, { params }: RouteContext) {
     }
 }
 
-export async function DELETE(_request: Request, { params }: RouteContext) {
+export async function DELETE(request: Request, { params }: RouteContext) {
+    const unauthorized = requireAdmin(request);
+    if (unauthorized) return unauthorized;
+
     const { id } = await params;
     if (!ObjectId.isValid(id)) {
         return Response.json({ error: '올바르지 않은 책 ID입니다.' }, { status: 400 });

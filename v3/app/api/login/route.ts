@@ -1,4 +1,5 @@
 import { login } from '@/src/db/dbApis';
+import { createAdminSessionCookie } from '@/src/auth/adminSession';
 
 export async function POST(request: Request) {
     const requestUrl = new URL(request.url);
@@ -27,15 +28,17 @@ export async function POST(request: Request) {
     }
 
     try {
-        const result = await login(password);
-
-        if (!result) {
-            throw new Error('올바른 비밀번호가 아닙니다!');
+        const authenticated = await login(password);
+        if (!authenticated) {
+            return Response.json({ error: '비밀번호가 올바르지 않습니다.' }, { status: 401 });
         }
 
-        return Response.json(result, { status: 201 });
-    } catch {
-        console.error('로그인에 실패했습니다.');
-        return Response.json({ error: '로그인에 실패했습니다.' }, { status: 400 });
+        return Response.json(true, {
+            status: 200,
+            headers: { 'Set-Cookie': createAdminSessionCookie(request) },
+        });
+    } catch (error) {
+        console.error('로그인에 실패했습니다.', error);
+        return Response.json({ error: '로그인에 실패했습니다.' }, { status: 500 });
     }
 }

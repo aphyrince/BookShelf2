@@ -1,4 +1,5 @@
 import { createBook, getBookById, getBooks, parseWithIdBook2DTO } from '@/src/db/dbApis';
+import { requireAdmin } from '@/src/auth/adminSession';
 
 export async function GET() {
     try {
@@ -13,6 +14,9 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+    const unauthorized = requireAdmin(request);
+    if (unauthorized) return unauthorized;
+
     let newBook: Book;
     try {
         const body = (await request.json()) as Omit<Book, 'readAt'> & { readAt?: string };

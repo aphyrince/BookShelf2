@@ -26,6 +26,10 @@ The login password is sent to the same-origin `/api/login` endpoint over HTTPS. 
 
 For local development, login is allowed on `http://localhost` only. A device connecting to the development server through a LAN IP must use the deployed HTTPS URL to log in.
 
+## Admin API sessions
+
+Set `ADMIN_SESSION_SECRET` to a unique random secret of at least 32 bytes in the Vercel project environment (and in `.env.local` for local development). For example, generate one with `node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"`. Successful login sets a seven-day, `HttpOnly`, `SameSite=Lax` session cookie; book and category create, update, and delete APIs reject requests without a valid signature. Logging out expires the cookie.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

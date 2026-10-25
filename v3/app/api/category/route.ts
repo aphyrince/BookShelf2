@@ -1,4 +1,5 @@
 import { createCategory, getCategories, getCategoryById, parseWithIdCategory2DTO } from '@/src/db/dbCategoryAPIs';
+import { requireAdmin } from '@/src/auth/adminSession';
 
 export async function GET() {
     try {
@@ -13,6 +14,9 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+    const unauthorized = requireAdmin(request);
+    if (unauthorized) return unauthorized;
+
     let newCategory: Category;
 
     try {
