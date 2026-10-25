@@ -14,7 +14,7 @@ const CategorySelector = ({ show, onSelect, onClose, custumStyle = '' }: Props) 
 
     return (
         <div
-            className={`relative ${custumStyle} not-md:absolute not-md:w-full top-full -left-2 translate-y-1`}
+            className={`relative ${custumStyle} not-md:absolute not-md:w-full not-md:top-full -left-2 translate-y-1`}
             onClick={(e) => e.stopPropagation()}
         >
             {show && (
