@@ -27,8 +27,11 @@ const BookCard = ({ item }: Props) => {
                 <p className='font-bold truncate'>{item.title}</p>
                 <p className='text-[0.6rem] md:text-xs text-slate-500 truncate'>{item.author}</p>
             </div>
-            {/* <p>{item.category}</p> */}
-            {categoryItem && <CategoryCard item={categoryItem} customStyle=' truncate m-auto not-md:text-[0.6rem]' />}
+            {categoryItem ? (
+                <CategoryCard item={categoryItem} customStyle=' truncate m-auto not-md:text-[0.6rem]' />
+            ) : (
+                <p></p>
+            )}
             <p className='text-[0.6rem] md:text-xs'>{item.readAt.slice(0, 10)}</p>
             <p>{item.count}</p>
             <p>{item.rating}</p>
