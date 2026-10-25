@@ -20,6 +20,12 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Login transport security
+
+The login password is sent to the same-origin `/api/login` endpoint over HTTPS. Vercel provides HTTPS for deployed domains; the app rejects login attempts made over HTTP and sends an HSTS header so browsers continue to use HTTPS. No separate client-side password encryption is used because HTTPS encrypts and authenticates the entire connection.
+
+For local development, login is allowed on `http://localhost` only. A device connecting to the development server through a LAN IP must use the deployed HTTPS URL to log in.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

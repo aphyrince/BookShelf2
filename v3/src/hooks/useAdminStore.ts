@@ -27,6 +27,13 @@ export async function attemptLogin(password: string): Promise<boolean> {
 }
 
 async function requestLogin(password: string) {
+    const isLocalDevelopment =
+        process.env.NODE_ENV !== 'production' &&
+        ['localhost', '127.0.0.1', '[::1]'].includes(window.location.hostname);
+    if (window.location.protocol !== 'https:' && !isLocalDevelopment) {
+        throw new Error('비밀번호 보호를 위해 HTTPS 연결에서만 로그인할 수 있습니다.');
+    }
+
     return requestJSON<boolean>('/api/login', {
         method: 'POST',
         body: JSON.stringify({ password }),
