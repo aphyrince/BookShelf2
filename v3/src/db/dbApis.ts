@@ -66,7 +66,7 @@ export async function createBook(book: Book): Promise<string> {
 
 // 책 목록 불러오기
 export async function getBooks(): Promise<WithId<Book>[]> {
-    return (await getBooksCollection()).find({}).sort({ createdAt: -1 }).toArray();
+    return (await getBooksCollection()).find({}).sort({ readAt: -1 }).toArray();
 }
 
 // ID로 책 한 권 불러오기.
