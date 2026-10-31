@@ -1,7 +1,7 @@
 interface Book {
     title: string;
     author?: string;
-    readAt?: Date;
+    readAt?: Date[];
     updatedAt?: Date;
     createdAt?: Date;
     comment?: string;
@@ -15,7 +15,7 @@ interface BookDTO {
     id: string;
     title: string;
     author: string;
-    readAt: string;
+    readAt: string[];
     createAt: string;
     updatedAt: string;
     comment: string;

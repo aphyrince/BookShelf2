@@ -21,7 +21,7 @@ export function parseWithIdBook2DTO(book: WithId<Book>): BookDTO {
         id: book._id.toString(),
         title: book.title,
         author: book.author || '',
-        readAt: dateToISOString(book.readAt),
+        readAt: book.readAt?.map((item) => dateToISOString(item)) || [],
         createAt: dateToISOString(book.createdAt),
         updatedAt: dateToISOString(book.updatedAt),
         comment: book.comment || '',
@@ -35,7 +35,7 @@ export function parseBookDTO2Book(dto: BookDTO): Book {
     return {
         title: dto.title,
         author: dto.author,
-        readAt: dto.readAt ? new Date(dto.readAt) : undefined,
+        readAt: dto.readAt.length ? dto.readAt.map((item) => new Date(item)) : undefined,
         createdAt: dto.createAt ? new Date(dto.createAt) : undefined,
         updatedAt: dto.updatedAt ? new Date(dto.updatedAt) : undefined,
         comment: dto.comment,
