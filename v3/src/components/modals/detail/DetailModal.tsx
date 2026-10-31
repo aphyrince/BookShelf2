@@ -68,6 +68,8 @@ const DetailModal = () => {
         setEditMode(false);
     }, [item]);
 
+    console.log(item.readAt.length);
+
     return (
         <div className='fixed inset-0 z-50 flex justify-center items-center bg-black/50 p-4' onClick={closeModal}>
             <div
@@ -132,11 +134,7 @@ const DetailModal = () => {
                             )}
                         </div>
                     </div>
-                    {editMode ? (
-                        <DetailEditCard label='count' type='number' />
-                    ) : (
-                        <DetailItemCard label='count' text={item.count} />
-                    )}
+                    <DetailItemCard label='count' text={item.readAt.length} />
                     {editMode ? (
                         <DetailEditCard label='rating' type='number' />
                     ) : (

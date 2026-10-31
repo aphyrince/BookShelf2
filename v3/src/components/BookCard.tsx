@@ -17,8 +17,6 @@ const BookCard = ({ item }: Props) => {
         setPrevBookDetail(item);
     }, [item]);
 
-    console.log(['2026-09-29', '2026-08-30'].sort());
-
     return (
         <div
             key={item.id}
@@ -37,7 +35,7 @@ const BookCard = ({ item }: Props) => {
             <p className='text-[0.6rem] md:text-xs'>
                 {item.readAt && item.readAt.length && item.readAt.sort()[item.readAt.length - 1].slice(0, 10)}
             </p>
-            <p>{item.count}</p>
+            <p>{item.readAt.length || 1}</p>
             <p>{item.rating}</p>
             <p className='text-center md:text-left truncate'>{item.comment}</p>
         </div>
