@@ -18,6 +18,7 @@ import DetailItemCard from './DetailItemCard';
 import CategoryCard from '../../CategoryCard';
 import DetailEditCard from './DetailEditCard';
 import CategorySelector from '../../CategorySelector';
+import DetailReadatCard from './DetailReadatCard';
 
 const DetailModal = () => {
     const item = useModalStore((s) => s.bookDetail) as BookDTO;
@@ -143,7 +144,7 @@ const DetailModal = () => {
                     {editMode ? (
                         <DetailEditCard label='readAt' type='date' />
                     ) : (
-                        <DetailItemCard label='read at' text={item.readAt.slice(0, 10)} />
+                        <DetailReadatCard readAt={item.readAt} />
                     )}
                     {editMode ? (
                         <DetailEditCard label='comment' custumStyle='flex flex-col gap-2' textarea />
