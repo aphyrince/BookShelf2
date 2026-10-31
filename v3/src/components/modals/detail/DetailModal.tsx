@@ -146,16 +146,6 @@ const DetailModal = () => {
                         <DetailItemCard label='read at' text={item.readAt.slice(0, 10)} />
                     )}
                     {editMode ? (
-                        <DetailEditCard label='createAt' type='date' />
-                    ) : (
-                        <DetailItemCard label='create at' text={item.createAt.slice(0, 10)} />
-                    )}
-                    {editMode ? (
-                        <DetailEditCard label='updatedAt' type='date' />
-                    ) : (
-                        <DetailItemCard label='updated at' text={item.updatedAt.slice(0, 10)} />
-                    )}
-                    {editMode ? (
                         <DetailEditCard label='comment' custumStyle='flex flex-col gap-2' textarea />
                     ) : (
                         <div className='flex flex-col gap-2'>
