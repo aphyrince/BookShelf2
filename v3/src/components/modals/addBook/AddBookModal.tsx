@@ -17,7 +17,7 @@ const AddBookModal = () => {
         comment: '',
         count: 0,
         rating: 0,
-        readAt: new Date(),
+        readAt: [new Date()],
     });
 
     const closeModal = useCallback((e?: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -147,20 +147,25 @@ const AddBookModal = () => {
                     </div>
                     <div className='grid grid-cols-2'>
                         <p className='uppercase'>read at</p>
-                        <input
-                            type='date'
-                            value={(item.readAt as Date).toISOString().slice(0, 10)}
-                            onChange={(e) => {
-                                if (!e.target.valueAsDate) return;
-                                setItem((prev) => ({ ...prev, readAt: e.target.valueAsDate || prev.readAt }));
-                            }}
-                            className='outline outline-slate-500 px-2 py-1 rounded-lg
+                        {item.readAt && (
+                            <input
+                                type='date'
+                                value={(item.readAt[0] as Date).toISOString().slice(0, 10)}
+                                onChange={(e) => {
+                                    if (!e.target.valueAsDate) return;
+                                    setItem((prev) => ({
+                                        ...prev,
+                                        readAt: [e.target.valueAsDate || (prev.readAt && prev.readAt[0]) || new Date()],
+                                    }));
+                                }}
+                                className='outline outline-slate-500 px-2 py-1 rounded-lg
                                         focus:bg-slate-200 active:bg-slate-200
                                         focus:outline-black active:outline-black
                                         dark:focus:bg-slate-700 dark:active:bg-slate-700
                                         dark:focus:outline-white dark:active:outline-white
                                             duration-200'
-                        />
+                            />
+                        )}
                     </div>
                     <div className='flex flex-col gap-2'>
                         <p className='uppercase'>comment</p>

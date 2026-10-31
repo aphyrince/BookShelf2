@@ -19,9 +19,16 @@ export async function POST(request: Request) {
 
     let newBook: Book;
     try {
-        const body = (await request.json()) as Omit<Book, 'readAt'> & { readAt?: string };
-        const readAt = body.readAt ? new Date(body.readAt) : undefined;
-        if (readAt && Number.isNaN(readAt.getTime())) {
+        const body = (await request.json()) as Omit<Book, 'readAt'> & { readAt?: string[] };
+        if (body.readAt !== undefined && !Array.isArray(body.readAt)) {
+            return Response.json({ error: '읽은 날짜가 올바른 배열 형식이 아닙니다.' }, { status: 400 });
+        }
+        if (body.readAt?.some((item) => typeof item !== 'string')) {
+            return Response.json({ error: '읽은 날짜가 올바른 배열 형식이 아닙니다.' }, { status: 400 });
+        }
+
+        const readAt = body.readAt?.map((item) => new Date(item));
+        if (readAt?.some((item) => Number.isNaN(item.getTime()))) {
             return Response.json({ error: '읽은 날짜가 올바르지 않습니다.' }, { status: 400 });
         }
 

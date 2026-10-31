@@ -17,11 +17,14 @@ function dateToISOString(value?: Date | string | null): string {
 }
 
 export function parseWithIdBook2DTO(book: WithId<Book>): BookDTO {
+    const storedReadAt = book.readAt as Date[] | Date | string | null | undefined;
+    const readAt = Array.isArray(storedReadAt) ? storedReadAt : storedReadAt ? [storedReadAt] : [];
+
     return {
         id: book._id.toString(),
         title: book.title,
         author: book.author || '',
-        readAt: book.readAt?.map((item) => dateToISOString(item)) || [],
+        readAt: readAt.map((item) => dateToISOString(item)),
         createAt: dateToISOString(book.createdAt),
         updatedAt: dateToISOString(book.updatedAt),
         comment: book.comment || '',
