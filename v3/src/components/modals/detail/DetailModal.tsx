@@ -19,6 +19,7 @@ import CategoryCard from '../../CategoryCard';
 import DetailEditCard from './DetailEditCard';
 import CategorySelector from '../../CategorySelector';
 import DetailReadatCard from './DetailReadatCard';
+import DetailReadatEditCard from './DetailReadatEditCard';
 
 const DetailModal = () => {
     const item = useModalStore((s) => s.bookDetail) as BookDTO;
@@ -142,7 +143,8 @@ const DetailModal = () => {
                         <DetailItemCard label='rating' text={item.rating} />
                     )}
                     {editMode ? (
-                        <DetailEditCard label='readAt' type='date' />
+                        // <DetailEditCard label='readAt' type='date' />
+                        <DetailReadatEditCard />
                     ) : (
                         <DetailReadatCard readAt={item.readAt} />
                     )}
