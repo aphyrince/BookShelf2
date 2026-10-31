@@ -1,7 +1,7 @@
 import { setDetailPartialItem, useModalStore } from '@/src/hooks/useModal';
 import React, { useCallback } from 'react';
 
-const DetailReadatEditCard = () => {
+const DetailReadatEditor = () => {
     const readAt = useModalStore((s) => s.bookDetail?.readAt);
 
     const handleChange = useCallback(
@@ -38,4 +38,4 @@ const DetailReadatEditCard = () => {
     );
 };
 
-export default DetailReadatEditCard;
+export default DetailReadatEditor;
