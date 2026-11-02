@@ -20,7 +20,7 @@ import DetailEditCard from './DetailEditCard';
 import CategorySelector from '../../CategorySelector';
 import DetailReadatCard from './DetailReadatCard';
 import DetailReadatEditor from './DetailReadatEditor';
-import { X } from 'lucide-react';
+import { Check, RotateCcw, SquarePen, Trash, X } from 'lucide-react';
 
 const DetailModal = () => {
     const item = useModalStore((s) => s.bookDetail) as BookDTO;
@@ -85,20 +85,20 @@ const DetailModal = () => {
                     <p className='flex-1 text-2xl '>Detail</p>
                     {editMode && (
                         <HeaderButton
-                            text='delete'
+                            Icon={Trash}
                             onClick={handleDelete}
                             customStyle='hover:bg-red-500 hover:border-transparent active:border-red-900'
                         />
                     )}
                     {editMode && (
                         <HeaderButton
-                            text='commit'
+                            Icon={Check}
                             onClick={handleCommit}
                             customStyle='hover:bg-green-500 hover:border-transparent active:border-green-900 col-span-2'
                         />
                     )}
-                    {editMode && <HeaderButton text='cancel' onClick={handleCancel} />}
-                    {isAdmin && !editMode && <HeaderButton text='edit' onClick={handleEditClick} />}
+                    {editMode && <HeaderButton Icon={RotateCcw} onClick={handleCancel} />}
+                    {isAdmin && !editMode && <HeaderButton Icon={SquarePen} onClick={handleEditClick} />}
 
                     <HeaderButton Icon={X} onClick={closeModal} />
                 </div>
