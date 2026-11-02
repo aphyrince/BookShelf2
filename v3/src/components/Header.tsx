@@ -3,6 +3,7 @@ import Admin from './Admin';
 import HeaderButton from '../shared/HeaderButton';
 import { useAdminStore } from '../hooks/useAdminStore';
 import { setModalMode } from '../hooks/useModal';
+import { Moon } from 'lucide-react';
 
 interface Props {
     onToggleTheme: () => void;
@@ -33,7 +34,7 @@ const Header = ({ onToggleTheme }: Props) => {
                 />
             )}
             <Admin />
-            <HeaderButton text={'Dark'} onClick={onToggleTheme} />
+            <HeaderButton Icon={Moon} onClick={onToggleTheme} />
         </header>
     );
 };
