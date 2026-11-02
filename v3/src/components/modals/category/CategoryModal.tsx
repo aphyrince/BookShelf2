@@ -5,6 +5,7 @@ import React, { useCallback } from 'react';
 import CategoryCard from '../../CategoryCard';
 import CategoryEditor from './CategoryEditor';
 import { setCategoryEditorItem, setCategoryEditorMode } from '@/src/hooks/useCategoryEditorStore';
+import { X } from 'lucide-react';
 
 const CategoryModal = () => {
     const categories = useCategoryStore((s) => s.categories);
@@ -35,7 +36,7 @@ const CategoryModal = () => {
                 {/* 카테고리 헤더 */}
                 <div className='flex items-center gap-4 '>
                     <p className='flex-1 text-2xl '>Category</p>
-                    <HeaderButton text='X' onClick={closeModal} />
+                    <HeaderButton Icon={X} onClick={closeModal} />
                 </div>
                 <hr />
                 <div className='flex flex-1 min-h-0 gap-2 md:gap-4'>

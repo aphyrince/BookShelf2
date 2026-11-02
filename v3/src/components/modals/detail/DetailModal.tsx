@@ -20,6 +20,7 @@ import DetailEditCard from './DetailEditCard';
 import CategorySelector from '../../CategorySelector';
 import DetailReadatCard from './DetailReadatCard';
 import DetailReadatEditor from './DetailReadatEditor';
+import { X } from 'lucide-react';
 
 const DetailModal = () => {
     const item = useModalStore((s) => s.bookDetail) as BookDTO;
@@ -99,7 +100,7 @@ const DetailModal = () => {
                     {editMode && <HeaderButton text='cancel' onClick={handleCancel} />}
                     {isAdmin && !editMode && <HeaderButton text='edit' onClick={handleEditClick} />}
 
-                    <HeaderButton text='X' onClick={closeModal} />
+                    <HeaderButton Icon={X} onClick={closeModal} />
                 </div>
                 <hr />
                 <div className='flex flex-col gap-2'>

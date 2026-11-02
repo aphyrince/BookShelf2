@@ -6,6 +6,7 @@ import HeaderButton from '@/src/shared/HeaderButton';
 import { useCallback, useState } from 'react';
 import CategoryCard from '../../CategoryCard';
 import CategorySelector from '../../CategorySelector';
+import { X } from 'lucide-react';
 
 const AddBookModal = () => {
     const [showCategorySelector, setShowCategorySelector] = useState(false);
@@ -52,7 +53,7 @@ const AddBookModal = () => {
                 {/* 헤더 */}
                 <div className='flex items-center gap-4'>
                     <p className='flex-1 text-2xl'>Add Book</p>
-                    <HeaderButton text='X' onClick={closeModal} />
+                    <HeaderButton Icon={X} onClick={closeModal} />
                 </div>
                 <hr />
                 <div className='flex flex-col gap-2'>
