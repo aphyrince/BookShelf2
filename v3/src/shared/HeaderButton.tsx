@@ -1,14 +1,16 @@
+import { LucideIcon } from 'lucide-react';
 import React from 'react';
 
 interface Props {
-    text: string;
+    text?: string;
+    Icon?: LucideIcon;
     onClick: () => void;
     customStyle?: string;
     disabled?: boolean;
     type?: 'button' | 'reset' | 'submit';
 }
 
-const HeaderButton = ({ text, onClick, customStyle, disabled, type = 'button' }: Props) => {
+const HeaderButton = ({ text, onClick, customStyle, disabled, type = 'button', Icon }: Props) => {
     return (
         <button
             className={`p-2 text-[0.6rem] md:px-4 md:py-2 md:text-sm rounded-md bg-transparent border-slate-600 dark:border-slate-400 border 
@@ -19,6 +21,7 @@ const HeaderButton = ({ text, onClick, customStyle, disabled, type = 'button' }:
             type={type}
         >
             {text}
+            {Icon && <Icon />}
         </button>
     );
 };
