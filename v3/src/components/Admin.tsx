@@ -4,6 +4,7 @@ import HeaderButton from '../shared/HeaderButton';
 import { attemptLogin, logout, useAdminStore } from '../hooks/useAdminStore';
 import { useCallback, useState, type FormEvent } from 'react';
 import getErrorMessage from '../utils/getErrorMessage';
+import { ShieldUser } from 'lucide-react';
 
 const Admin = () => {
     const login = useAdminStore((s) => s.login);
@@ -57,7 +58,7 @@ const Admin = () => {
         <>
             <div className={`${login && 'admin'} flex justify-center items-center gap-4`}>
                 <HeaderButton
-                    text={'Admin'}
+                    Icon={ShieldUser}
                     onClick={handleAdminPress}
                     customStyle='admin:bg-red-500 admin:text-white admin:border-transparent'
                 />
