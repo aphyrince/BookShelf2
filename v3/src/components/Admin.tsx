@@ -4,7 +4,7 @@ import HeaderButton from '../shared/HeaderButton';
 import { attemptLogin, logout, useAdminStore } from '../hooks/useAdminStore';
 import { useCallback, useState, type FormEvent } from 'react';
 import getErrorMessage from '../utils/getErrorMessage';
-import { ShieldUser } from 'lucide-react';
+import { ShieldUser, X } from 'lucide-react';
 
 const Admin = () => {
     const login = useAdminStore((s) => s.login);
@@ -98,7 +98,7 @@ const Admin = () => {
                                 )}
                                 <div className='flex justify-end gap-2'>
                                     <HeaderButton
-                                        text='cancel'
+                                        Icon={X}
                                         onClick={handleCloseDialog}
                                         customStyle='not-md:text-sm not-md:px-4 not-md:py-2'
                                     />
@@ -123,7 +123,7 @@ const Admin = () => {
                                 )}
                                 <div className='flex justify-end gap-2'>
                                     <HeaderButton
-                                        text='cancel'
+                                        Icon={X}
                                         onClick={handleCloseDialog}
                                         customStyle='not-md:text-sm not-md:px-4 not-md:py-2'
                                     />
