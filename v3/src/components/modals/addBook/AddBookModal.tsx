@@ -6,7 +6,7 @@ import HeaderButton from '@/src/shared/HeaderButton';
 import { useCallback, useState } from 'react';
 import CategoryCard from '../../CategoryCard';
 import CategorySelector from '../../CategorySelector';
-import { X } from 'lucide-react';
+import { Check, X } from 'lucide-react';
 
 const AddBookModal = () => {
     const [showCategorySelector, setShowCategorySelector] = useState(false);
@@ -182,7 +182,7 @@ const AddBookModal = () => {
                         />
                     </div>
                     <HeaderButton
-                        text='add'
+                        Icon={Check}
                         onClick={handleAddClick}
                         customStyle='mt-2 ml-auto hover:bg-green-500 hover:border-transparent hover:dark:bg-green-600 hover:dark:text-white'
                     />

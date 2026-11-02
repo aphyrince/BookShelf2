@@ -8,6 +8,7 @@ import {
     setCategoryEditorMode,
     useCategoryEditorStore,
 } from '@/src/hooks/useCategoryEditorStore';
+import { Check, Plus, Trash, X } from 'lucide-react';
 
 const CategoryEditor = () => {
     const mode = useCategoryEditorStore((s) => s.mode);
@@ -84,26 +85,26 @@ const CategoryEditor = () => {
                     }}
                 />
                 <div className='grid grid-cols-2 items-center justify-between gap-4'>
-                    <HeaderButton text='cancel' onClick={handleCancel} />
+                    <HeaderButton Icon={X} onClick={handleCancel} customStyle='flex justify-center' />
                     {mode === 'ADD' && (
                         <HeaderButton
-                            text='ADD'
+                            Icon={Plus}
                             onClick={handleAdd}
-                            customStyle='hover:bg-green-500 hover:border-transparent active:border-green-900'
+                            customStyle='hover:bg-green-500 hover:border-transparent active:border-green-900 flex justify-center'
                         />
                     )}
                     {mode === 'EDIT' && (
                         <HeaderButton
-                            text='delete'
+                            Icon={Trash}
                             onClick={handleDelete}
-                            customStyle='hover:bg-red-500 hover:border-transparent active:border-red-900'
+                            customStyle='hover:bg-red-500 hover:border-transparent active:border-red-900 flex justify-center'
                         />
                     )}
                     {mode === 'EDIT' && (
                         <HeaderButton
-                            text='commit'
+                            Icon={Check}
                             onClick={handleCommit}
-                            customStyle='hover:bg-green-500 hover:border-transparent active:border-green-900 col-span-2'
+                            customStyle='hover:bg-green-500 hover:border-transparent active:border-green-900 col-span-2 flex justify-center'
                         />
                     )}
                 </div>

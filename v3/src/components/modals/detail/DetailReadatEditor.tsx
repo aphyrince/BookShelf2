@@ -1,5 +1,6 @@
 import { setDetailPartialItem, useModalStore } from '@/src/hooks/useModal';
 import HeaderButton from '@/src/shared/HeaderButton';
+import { Plus, Trash } from 'lucide-react';
 import React, { useCallback, useState } from 'react';
 
 const DetailReadatEditor = () => {
@@ -53,10 +54,10 @@ const DetailReadatEditor = () => {
                                 setDate(e.target.value);
                             }}
                         />
-                        <HeaderButton text='+' onClick={handleAddDate2ReadAt} />
+                        <HeaderButton Icon={Plus} onClick={handleAddDate2ReadAt} customStyle='flex justify-center' />
                     </div>
                 ) : (
-                    <HeaderButton text='+' onClick={handleAddDateClick} />
+                    <HeaderButton Icon={Plus} onClick={handleAddDateClick} customStyle='flex justify-center' />
                 )}
 
                 {readAt &&
@@ -74,7 +75,11 @@ const DetailReadatEditor = () => {
                             dark:focus:bg-slate-700 dark:active:bg-slate-700
                             duration-200'
                                 />
-                                <HeaderButton text='-' onClick={() => handleDeleteDateClick(elem)} />
+                                <HeaderButton
+                                    Icon={Trash}
+                                    onClick={() => handleDeleteDateClick(elem)}
+                                    customStyle='flex justify-center'
+                                />
                             </div>
                         ))}
             </div>
