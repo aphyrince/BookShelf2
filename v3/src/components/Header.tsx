@@ -3,7 +3,7 @@ import Admin from './Admin';
 import HeaderButton from '../shared/HeaderButton';
 import { useAdminStore } from '../hooks/useAdminStore';
 import { setModalMode } from '../hooks/useModal';
-import { Moon } from 'lucide-react';
+import { FilePlus, Moon } from 'lucide-react';
 
 interface Props {
     onToggleTheme: () => void;
@@ -23,16 +23,8 @@ const Header = ({ onToggleTheme }: Props) => {
     return (
         <header className='flex justify-center items-center gap-1 md:gap-4'>
             <h1 className='flex-1 text-xl md:text-3xl italic tracking-tight'>안정호의 책장</h1>
-            {login && (
-                <HeaderButton text={'Add Book'} onClick={handleAddBookPress} customStyle='not-md:w-10 not-md:p-1' />
-            )}
-            {login && (
-                <HeaderButton
-                    text={'Edit Category'}
-                    onClick={handleCategoryPress}
-                    customStyle='not-md:w-15 not-md:p-1'
-                />
-            )}
+            {login && <HeaderButton Icon={FilePlus} onClick={handleAddBookPress} />}
+            {login && <HeaderButton text={'Category'} onClick={handleCategoryPress} />}
             <Admin />
             <HeaderButton Icon={Moon} onClick={onToggleTheme} />
         </header>

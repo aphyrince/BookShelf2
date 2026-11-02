@@ -21,7 +21,7 @@ const HeaderButton = ({ text, onClick, customStyle, disabled, type = 'button', I
             type={type}
         >
             {text}
-            {Icon && <Icon />}
+            {Icon && <Icon size={20} />}
         </button>
     );
 };
