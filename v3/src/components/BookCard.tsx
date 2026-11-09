@@ -28,16 +28,21 @@ const BookCard = ({ item }: Props) => {
                 <p className='text-[0.6rem] md:text-xs text-slate-500 truncate'>{item.author}</p>
             </div>
             {categoryItem ? (
-                <CategoryCard item={categoryItem} customStyle=' truncate m-auto not-md:text-[0.6rem]' />
+                <CategoryCard
+                    item={categoryItem}
+                    customStyle=' truncate m-auto not-md:text-[0.6rem]'
+                />
             ) : (
                 <p></p>
             )}
             <p className='text-[0.6rem] md:text-xs'>
-                {item.readAt && item.readAt.length && item.readAt.sort()[item.readAt.length - 1].slice(0, 10)}
+                {item.readAt &&
+                    item.readAt.length &&
+                    item.readAt.sort()[item.readAt.length - 1].slice(0, 10)}
             </p>
             <p>{item.readAt.length || 1}</p>
             <p>{item.rating}</p>
-            <p className='text-center md:text-left truncate'>{item.comment}</p>
+            <p className='text-center truncate md:text-left'>{item.comment}</p>
         </div>
     );
 };

@@ -10,7 +10,7 @@ const Table = () => {
     const loading = useBookStore((s) => s.loading);
 
     return (
-        <div className='flex-col outline outline-slate-500 divide-y divide-slate-500'>
+        <div className='flex-col divide-y outline outline-slate-500 divide-slate-500'>
             <TableHeader />
             {/* 카드 리스트 */}
             {loading ? (

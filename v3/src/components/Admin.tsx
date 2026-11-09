@@ -66,13 +66,13 @@ const Admin = () => {
 
             {dialogMode && (
                 <div
-                    className='fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4'
+                    className='fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50'
                     onClick={handleCloseDialog}
                 >
                     <section
                         aria-labelledby='admin-dialog-title'
                         aria-modal='true'
-                        className='w-full max-w-sm rounded-xl bg-white border border-transparent p-6 text-slate-900 shadow-xl dark:bg-slate-900 dark:text-white dark:border-white'
+                        className='w-full max-w-sm p-6 bg-white border border-transparent shadow-xl rounded-xl text-slate-900 dark:bg-slate-900 dark:text-white dark:border-white'
                         onClick={(event) => event.stopPropagation()}
                         role='dialog'
                     >
@@ -85,7 +85,7 @@ const Admin = () => {
                                     비밀번호
                                     <input
                                         autoComplete='current-password'
-                                        className='rounded-md border border-slate-400 bg-transparent px-3 py-2'
+                                        className='px-3 py-2 bg-transparent border rounded-md border-slate-400'
                                         onChange={(event) => setPassword(event.target.value)}
                                         type='password'
                                         value={password}
