@@ -10,6 +10,7 @@ import { refreshCategory } from '@/src/hooks/useCategoryStore';
 import { useModalStore } from '@/src/hooks/useModal';
 import React, { useCallback, useEffect, useState } from 'react';
 import { persistThemePreference } from '../utils/persistThemePreference';
+import cn from '../utils/cn';
 
 interface Props {
     initialDarkTheme: boolean;
@@ -32,11 +33,16 @@ const PageContent = ({ initialDarkTheme }: Props) => {
 
     return (
         <div
-            className={`${darkMode && 'dark'} flex flex-col gap-4 md:gap-8 
-                bg-slate-50 text-slate-900 
-                dark:bg-slate-800 dark:text-white 
-                min-h-screen p-4 md:p-12 
-                transition-colors duration-300`}
+            className={cn(
+                darkMode && 'dark',
+                'flex flex-col',
+                'gap-4 md:gap-8',
+                'bg-primary',
+                'text-polar',
+                'min-h-screen',
+                'p-4 md:p-12',
+                'transition-colors duration-300',
+            )}
         >
             <Header onToggleTheme={handleToggleTheme} />
             <hr />

@@ -1,5 +1,26 @@
 @import 'tailwindcss';
 
-@custom-variant dark (&:where(.dark, .dark *));
+/* @custom-variant dark (&:where(.dark, .dark *)); */
 
 @custom-variant admin (&:where(.admin, .admin *));
+
+@theme {
+    --color-primary: #f4eeff;
+    --color-secondary: #dcd6f7;
+    --color-third: #a6b1e1;
+    --color-accent: #424874;
+
+    --color-polar: #000000;
+
+    --color-danger: oklch(57.7% 0.245 27.325);
+    --color-danger-font: #ffffff;
+}
+
+.dark {
+    --color-primary: #071b2b;
+    --color-secondary: #167d8d;
+    --color-third: #b9e4e8;
+    --color-accent: #eeeeee;
+
+    --color-polar: #ffffff;
+}

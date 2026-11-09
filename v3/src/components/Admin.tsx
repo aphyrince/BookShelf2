@@ -5,6 +5,7 @@ import { attemptLogin, logout, useAdminStore } from '../hooks/useAdminStore';
 import { useCallback, useState, type FormEvent } from 'react';
 import getErrorMessage from '../utils/getErrorMessage';
 import { ShieldUser, X } from 'lucide-react';
+import cn from '../utils/cn';
 
 const Admin = () => {
     const login = useAdminStore((s) => s.login);
@@ -56,7 +57,10 @@ const Admin = () => {
 
     return (
         <>
-            <div className={`${login && 'admin'} flex justify-center items-center gap-4`}>
+            <div
+                // className={`${login && 'admin'} flex justify-center items-center gap-4`}
+                className={cn(login && 'admin', 'flex justify-center items-center gap-4')}
+            >
                 <HeaderButton
                     Icon={ShieldUser}
                     onClick={handleAdminPress}
@@ -72,7 +76,15 @@ const Admin = () => {
                     <section
                         aria-labelledby='admin-dialog-title'
                         aria-modal='true'
-                        className='w-full max-w-sm p-6 bg-white border border-transparent shadow-xl rounded-xl text-slate-900 dark:bg-slate-900 dark:text-white dark:border-white'
+                        // className='w-full max-w-sm p-6 bg-white border border-transparent shadow-xl rounded-xl text-slate-900 dark:bg-slate-900 dark:text-white dark:border-white'
+                        className={cn(
+                            'w-full max-w-sm p-6',
+                            'bg-primary',
+                            'border border-accent',
+                            ' shadow-xl',
+                            'rounded-xl',
+                            'text-polar',
+                        )}
                         onClick={(event) => event.stopPropagation()}
                         role='dialog'
                     >
@@ -85,14 +97,14 @@ const Admin = () => {
                                     비밀번호
                                     <input
                                         autoComplete='current-password'
-                                        className='px-3 py-2 bg-transparent border rounded-md border-slate-400'
+                                        className='px-3 py-2 bg-transparent rounded-md border border-accent'
                                         onChange={(event) => setPassword(event.target.value)}
                                         type='password'
                                         value={password}
                                     />
                                 </label>
                                 {loginError && (
-                                    <p className='text-sm text-red-600' role='alert'>
+                                    <p className='text-sm text-danger' role='alert'>
                                         {loginError}
                                     </p>
                                 )}
@@ -117,7 +129,7 @@ const Admin = () => {
                                     로그아웃 하시겠습니까?
                                 </h2>
                                 {loginError && (
-                                    <p className='text-sm text-red-600' role='alert'>
+                                    <p className='text-sm text-danger' role='alert'>
                                         {loginError}
                                     </p>
                                 )}
