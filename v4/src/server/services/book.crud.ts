@@ -1,3 +1,4 @@
+import 'server-only';
 import { Schema } from 'mongoose';
 import Book from '../db/model.Book';
 

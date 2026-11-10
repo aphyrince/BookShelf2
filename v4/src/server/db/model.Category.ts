@@ -1,3 +1,4 @@
+import 'server-only';
 import mongoose, { Schema } from 'mongoose';
 
 const categorySchema = new Schema<ICategory>(

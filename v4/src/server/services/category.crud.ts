@@ -1,3 +1,4 @@
+import 'server-only';
 import { Schema } from 'mongoose';
 import Category from '../db/model.Category';
 
