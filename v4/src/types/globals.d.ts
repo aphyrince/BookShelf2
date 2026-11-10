@@ -13,3 +13,15 @@ interface ICategory {
     darkColor: string;
     darkBg: string;
 }
+
+type BookDTO = IBook & {
+    _id: Types.ObjectId;
+} & {
+    __v: number;
+};
+
+type CategoryDTO = ICategory & {
+    _id: Types.ObjectId;
+} & {
+    __v: number;
+};
