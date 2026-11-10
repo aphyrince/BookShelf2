@@ -1,10 +1,11 @@
+import { Schema } from 'mongoose';
 import Book from '../db/model.Book';
 
 export async function getBooks() {
     return await Book.find().lean();
 }
 
-export async function getBookById(id: string) {
+export async function getBookById(id: Schema.Types.ObjectId) {
     return await Book.findById(id).lean();
 }
 
