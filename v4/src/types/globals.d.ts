@@ -15,13 +15,11 @@ interface ICategory {
 }
 
 type BookDTO = IBook & {
-    _id: Types.ObjectId;
-} & {
+    _id: string;
     __v: number;
 };
 
 type CategoryDTO = ICategory & {
-    _id: Types.ObjectId;
-} & {
+    _id: string;
     __v: number;
 };
