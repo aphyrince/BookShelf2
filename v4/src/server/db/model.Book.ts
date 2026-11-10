@@ -10,7 +10,8 @@ const bookSchema = new Schema<IBook>(
             type: String,
         },
         category: {
-            type: String,
+            type: Schema.Types.ObjectId,
+            ref: 'Category',
         },
         readAt: {
             type: [Date],
